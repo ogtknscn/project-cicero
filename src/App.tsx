@@ -4,7 +4,7 @@ import { Sidebar } from './components/layout/Sidebar';
 import { MainContent } from './components/layout/MainContent';
 import { ProjectModal } from './components/project/ProjectModal';
 import { TaskModal } from './components/task/TaskModal';
-import { SearchCommand } from './components/common/SearchCommand';
+import { CommandPalette } from './components/common/CommandPalette';
 import { ToastContainer } from './components/common/Toast';
 import { useStore } from './stores/useStore';
 import { useViewStore } from './stores/viewStore';
@@ -16,7 +16,7 @@ function App() {
   const { theme } = useThemeStore();
   const [isProjectModalOpen, setIsProjectModalOpen] = useState(false);
   const [isTaskModalOpen, setIsTaskModalOpen] = useState(false);
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
   const [editingTaskId, setEditingTaskId] = useState<string | undefined>();
   const { setView } = useViewStore();
   
@@ -51,10 +51,10 @@ function App() {
   // Keyboard Shortcuts
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      // CMD+K or CTRL+K: Search
+      // CMD+K or CTRL+K: Command Palette
       if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
         e.preventDefault();
-        setIsSearchOpen((prev) => !prev);
+        setIsCommandPaletteOpen((prev) => !prev);
       }
       
       // CMD+N or CTRL+N: New task (if project selected)
@@ -70,17 +70,17 @@ function App() {
       }
       
       // ESC: Close modals
-      if (e.key === 'Escape' && (isProjectModalOpen || isTaskModalOpen || isSearchOpen)) {
+      if (e.key === 'Escape' && (isProjectModalOpen || isTaskModalOpen || isCommandPaletteOpen)) {
         setIsProjectModalOpen(false);
         setIsTaskModalOpen(false);
-        setIsSearchOpen(false);
+        setIsCommandPaletteOpen(false);
         setEditingTaskId(undefined);
       }
     };
     
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [selectedProjectId, isProjectModalOpen, isTaskModalOpen, isSearchOpen]);
+  }, [selectedProjectId, isProjectModalOpen, isTaskModalOpen, isCommandPaletteOpen]);
   
   const handleSearchSelectTask = (task: Task) => {
     // Find the project
@@ -117,12 +117,13 @@ function App() {
         />
       )}
       
-      <SearchCommand
-        isOpen={isSearchOpen}
-        onClose={() => setIsSearchOpen(false)}
-        onSelectTask={handleSearchSelectTask}
+      <CommandPalette
+        isOpen={isCommandPaletteOpen}
+        onClose={() => setIsCommandPaletteOpen(false)}
+        onNewProject={handleNewProject}
+        onNewTask={handleNewTask}
       />
-      
+
       <ToastContainer />
     </div>
   );

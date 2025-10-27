@@ -4,6 +4,7 @@ import { ViewToggle } from '../common/ViewToggle';
 import { FilterPresetManager } from '../filter/FilterPresetManager';
 import { ViewPresetManager } from '../filter/ViewPresetManager';
 import { TemplateManager } from '../template/TemplateManager';
+import { ExportMenu } from '../export/ExportMenu';
 import { useStore } from '../../stores/useStore';
 import { useThemeStore } from '../../stores/themeStore';
 
@@ -59,6 +60,7 @@ export const Header = ({ onNewProject }: HeaderProps) => {
           <ViewPresetManager />
           <FilterPresetManager currentFilters={{}} />
           <TemplateManager />
+          <ExportMenu />
           <Button
             variant="ghost"
             size="sm"
@@ -68,11 +70,11 @@ export const Header = ({ onNewProject }: HeaderProps) => {
           </Button>
           <Button variant="secondary" size="sm" onClick={handleExport}>
             <Download size={16} className="mr-2" />
-            Dışa Aktar
+            JSON
           </Button>
           <Button variant="secondary" size="sm" onClick={handleImport}>
             <Upload size={16} className="mr-2" />
-            İçe Aktar
+            JSON
           </Button>
           <Button size="sm" onClick={onNewProject}>
             <Plus size={16} className="mr-2" />
