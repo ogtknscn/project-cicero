@@ -49,3 +49,18 @@ npm run build
 ## 📄 Lisans
 
 MIT
+
+---
+
+## 📚 Dokümantasyon
+
+Tüm proje belgeleri artık `docs/` klasöründe konsolide edildi:
+
+- docs/README.md — Doküman ana sayfası ve indeks
+- docs/EXTENSIONS_PLAN.md — Eklentiler ve özelleştirmeler için fazlandırılmış plan
+- PROJE_PLANI.md — Ana geliştirme planı
+- PREMIUM_FEATURES_PLAN.md — Ücretli özellikler planı
+- TEST_REPORT.md — Test raporu ve bilinen hatalar
+- SUMMARY.md — Genel özet
+
+Hızlı erişim: `docs/` klasörüne gidin.
