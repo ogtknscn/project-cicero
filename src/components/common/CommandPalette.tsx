@@ -20,7 +20,7 @@ import { useStore } from '../../stores/useStore';
 import { useViewStore } from '../../stores/viewStore';
 import { useThemeStore } from '../../stores/themeStore';
 import { useToastStore } from '../../stores/toastStore';
-import { exportProjectsToCSV, exportAllProjectsPDF } from '../../utils/export';
+import { exportProjectsToCSV, exportAllProjectsToPDF } from '../../utils/export';
 
 interface Command {
   id: string;
@@ -161,7 +161,7 @@ export const CommandPalette = ({ isOpen, onClose, onNewProject, onNewTask }: Com
       label: 'PDF Olarak Dışa Aktar',
       icon: FileText,
       keywords: ['export', 'pdf', 'dışa', 'aktar'],
-      action: () => { exportAllProjectsPDF(projects); onClose(); },
+      action: () => { exportAllProjectsToPDF(projects); onClose(); },
       category: 'export',
     },
     {
