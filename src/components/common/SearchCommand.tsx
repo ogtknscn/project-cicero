@@ -1,7 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { Search, X } from 'lucide-react';
 import { Task } from '../../types';
 import { useStore } from '../../stores/useStore';
+import { createTaskIndex, indexTasks, searchTasks } from '../../utils/search';
 
 interface SearchCommandProps {
   isOpen: boolean;
@@ -15,20 +16,29 @@ export const SearchCommand = ({ isOpen, onClose, onSelectTask }: SearchCommandPr
   const [selectedIndex, setSelectedIndex] = useState(0);
   
   // Get all tasks from all projects
-  const allTasks = projects.flatMap((project) =>
-    project.tasks.map((task) => ({
-      ...task,
-      projectName: project.name,
-      projectColor: project.color,
-    }))
+  const allTasks = useMemo(() => 
+    projects.flatMap((project) =>
+      project.tasks.map((task) => ({
+        ...task,
+        projectName: project.name,
+        projectColor: project.color,
+      }))
+    ),
+    [projects]
   );
+
+  // Create and populate FlexSearch index
+  const taskIndex = useMemo(() => {
+    const index = createTaskIndex();
+    indexTasks(allTasks, index);
+    return index;
+  }, [allTasks]);
   
-  // Filter tasks based on search term
-  const filteredTasks = allTasks.filter((task) =>
-    task.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    task.description?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    task.projectName.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  // Filter tasks using FlexSearch
+  const filteredTasks = useMemo(() => {
+    if (!searchTerm.trim()) return allTasks;
+    return searchTasks(searchTerm, allTasks, taskIndex);
+  }, [searchTerm, allTasks, taskIndex]);
   
   // Keyboard navigation
   useEffect(() => {

@@ -1,6 +1,9 @@
 import { Plus, Download, Upload, Moon, Sun } from 'lucide-react';
 import { Button } from '../common/Button';
 import { ViewToggle } from '../common/ViewToggle';
+import { FilterPresetManager } from '../filter/FilterPresetManager';
+import { ViewPresetManager } from '../filter/ViewPresetManager';
+import { TemplateManager } from '../template/TemplateManager';
 import { useStore } from '../../stores/useStore';
 import { useThemeStore } from '../../stores/themeStore';
 
@@ -53,6 +56,9 @@ export const Header = ({ onNewProject }: HeaderProps) => {
         
         <div className="flex items-center gap-2">
           <ViewToggle />
+          <ViewPresetManager />
+          <FilterPresetManager currentFilters={{}} />
+          <TemplateManager />
           <Button
             variant="ghost"
             size="sm"
