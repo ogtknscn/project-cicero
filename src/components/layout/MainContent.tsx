@@ -7,6 +7,7 @@ import { DraggableBoardView } from '../task/DraggableBoardView';
 import { ListView } from '../task/ListView';
 import { GanttView } from '../task/GanttView';
 import { Dashboard } from '../dashboard/Dashboard';
+import { WorkloadView } from '../workload/WorkloadView';
 import { Plus } from 'lucide-react';
 
 interface MainContentProps {
@@ -63,6 +64,8 @@ export const MainContent = ({ onNewTask, onEditTask }: MainContentProps) => {
         return <GanttView tasks={tasks} />;
       case 'dashboard':
         return <Dashboard />;
+      case 'workload':
+        return <WorkloadView />;
       default:
         return <DraggableBoardView todoTasks={todoTasks} inProgressTasks={inProgressTasks} doneTasks={doneTasks} onEdit={onEditTask} />;
     }
