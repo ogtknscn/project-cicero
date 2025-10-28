@@ -1,4 +1,4 @@
-import { LayoutGrid, List, Calendar, GanttChart, BarChart3, Users, Briefcase } from 'lucide-react';
+import { LayoutGrid, List, Calendar, GanttChart, BarChart3, Users, Briefcase, FileText } from 'lucide-react';
 import { useViewStore, ViewType } from '../../stores/viewStore';
 import { Button } from './Button';
 
@@ -12,6 +12,7 @@ export const ViewToggle = () => {
     { id: 'timeline' as ViewType, icon: GanttChart, label: 'Timeline' },
     { id: 'workload' as ViewType, icon: Users, label: 'Workload' },
     { id: 'portfolio' as ViewType, icon: Briefcase, label: 'Portfolio' },
+    { id: 'documents' as ViewType, icon: FileText, label: 'Dokümanlar' },
     { id: 'calendar' as ViewType, icon: Calendar, label: 'Takvim' },
   ];
   
