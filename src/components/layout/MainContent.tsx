@@ -12,6 +12,7 @@ import { PortfolioView } from '../portfolio/PortfolioView';
 import { DocumentManager } from '../document/DocumentManager';
 import { AutomationView } from '../automation/AutomationView';
 import { AgileView } from '../agile/AgileView';
+import { NotesView } from '../notes/NotesView';
 import { Plus } from 'lucide-react';
 
 interface MainContentProps {
@@ -78,6 +79,8 @@ export const MainContent = ({ onNewTask, onEditTask }: MainContentProps) => {
         return <AutomationView />;
       case 'agile':
         return <AgileView />;
+      case 'notes':
+        return <NotesView />;
       default:
         return <DraggableBoardView todoTasks={todoTasks} inProgressTasks={inProgressTasks} doneTasks={doneTasks} onEdit={onEditTask} />;
     }
