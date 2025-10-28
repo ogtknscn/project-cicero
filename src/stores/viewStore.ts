@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 
-export type ViewType = 'dashboard' | 'board' | 'list' | 'calendar' | 'timeline' | 'workload';
+export type ViewType = 'dashboard' | 'board' | 'list' | 'calendar' | 'timeline' | 'workload' | 'portfolio';
 
 interface ViewStore {
   currentView: ViewType;
