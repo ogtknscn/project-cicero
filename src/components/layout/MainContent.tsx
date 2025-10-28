@@ -10,6 +10,7 @@ import { Dashboard } from '../dashboard/Dashboard';
 import { WorkloadView } from '../workload/WorkloadView';
 import { PortfolioView } from '../portfolio/PortfolioView';
 import { DocumentManager } from '../document/DocumentManager';
+import { AutomationView } from '../automation/AutomationView';
 import { Plus } from 'lucide-react';
 
 interface MainContentProps {
@@ -72,6 +73,8 @@ export const MainContent = ({ onNewTask, onEditTask }: MainContentProps) => {
         return <PortfolioView />;
       case 'documents':
         return <DocumentManager />;
+      case 'automation':
+        return <AutomationView />;
       default:
         return <DraggableBoardView todoTasks={todoTasks} inProgressTasks={inProgressTasks} doneTasks={doneTasks} onEdit={onEditTask} />;
     }
