@@ -7,7 +7,7 @@ export const getISOWeek = (date: Date): string => {
   d.setHours(0, 0, 0, 0);
   d.setDate(d.getDate() + 4 - (d.getDay() || 7));
   const yearStart = new Date(d.getFullYear(), 0, 1);
-  const weekNo = Math.ceil((((d.getTime() - yearStart.getTime()) / 86400000) + 1) / 7);
+  const weekNo = Math.ceil(((d.getTime() - yearStart.getTime()) / 86400000 + 1) / 7);
   return `${d.getFullYear()}-W${weekNo.toString().padStart(2, '0')}`;
 };
 
@@ -24,9 +24,7 @@ export const calculateWorkloadSummary = (
   capacity: UserCapacity,
   projects: Project[]
 ): WorkloadSummary => {
-  const entries = workloadEntries.filter(
-    (e) => e.userId === userId && e.week === week
-  );
+  const entries = workloadEntries.filter((e) => e.userId === userId && e.week === week);
 
   const totalEstimatedHours = entries.reduce((sum, e) => sum + e.estimatedHours, 0);
   const totalActualHours = entries.reduce((sum, e) => sum + (e.actualHours || 0), 0);
@@ -69,13 +67,13 @@ export const getUtilizationColor = (utilization: number): string => {
 export const getWeeksArray = (count: number = 8): string[] => {
   const weeks: string[] = [];
   const today = new Date();
-  
+
   for (let i = 0; i < count; i++) {
     const date = new Date(today);
-    date.setDate(date.getDate() + (i * 7));
+    date.setDate(date.getDate() + i * 7);
     weeks.push(getISOWeek(date));
   }
-  
+
   return weeks;
 };
 
@@ -95,4 +93,3 @@ export const estimateTaskHours = (task: Task): number => {
 
   return Math.round(baseHours);
 };
-

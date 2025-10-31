@@ -72,4 +72,3 @@ export const getPointsLabel = (points: number): string => {
   if (points >= 13) return `${points} Points (XXL)`;
   return `${points} Points`;
 };
-

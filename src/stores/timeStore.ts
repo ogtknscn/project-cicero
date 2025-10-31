@@ -13,10 +13,10 @@ interface TimeStore {
   createEntry: (entry: Omit<TimeEntry, 'id'>) => void;
   updateEntry: (id: string, updates: Partial<TimeEntry>) => void;
   deleteEntry: (id: string) => void;
-  
+
   // Settings
   updateSettings: (taskId: string, settings: Partial<TimeTrackingSettings>) => void;
-  
+
   // Utils
   getTaskTimeSummary: (taskId: string) => TimeSummary;
   getProjectTimeSummary: (projectId: string, taskIds: string[]) => TimeSummary;
@@ -35,7 +35,7 @@ export const useTimeStore = create<TimeStore>()(
 
       startTracking: (taskId, userId, description) => {
         const { entries, activeEntry } = get();
-        
+
         // Stop any active entry first
         if (activeEntry) {
           const active = entries.find((e) => e.id === activeEntry);
@@ -43,7 +43,13 @@ export const useTimeStore = create<TimeStore>()(
             set({
               entries: entries.map((e) =>
                 e.id === activeEntry
-                  ? { ...e, endTime: new Date(), duration: get().getTaskTimeSummary(taskId).totalMinutes + (Date.now() - active.startTime.getTime()) / 60000 }
+                  ? {
+                      ...e,
+                      endTime: new Date(),
+                      duration:
+                        get().getTaskTimeSummary(taskId).totalMinutes +
+                        (Date.now() - active.startTime.getTime()) / 60000,
+                    }
                   : e
               ),
             });
@@ -80,11 +86,7 @@ export const useTimeStore = create<TimeStore>()(
           const duration = (endTime.getTime() - active.startTime.getTime()) / 60000; // minutes
 
           set({
-            entries: entries.map((e) =>
-              e.id === activeEntry
-                ? { ...e, endTime, duration }
-                : e
-            ),
+            entries: entries.map((e) => (e.id === activeEntry ? { ...e, endTime, duration } : e)),
             activeEntry: null,
           });
         }
@@ -102,9 +104,7 @@ export const useTimeStore = create<TimeStore>()(
 
       updateEntry: (id, updates) => {
         set((state) => ({
-          entries: state.entries.map((e) =>
-            e.id === id ? { ...e, ...updates } : e
-          ),
+          entries: state.entries.map((e) => (e.id === id ? { ...e, ...updates } : e)),
         }));
       },
 
@@ -170,4 +170,3 @@ export const useTimeStore = create<TimeStore>()(
     }
   )
 );
-

@@ -15,7 +15,7 @@ interface HeaderProps {
 export const Header = ({ onNewProject }: HeaderProps) => {
   const { exportData, importData } = useStore();
   const { theme, setTheme } = useThemeStore();
-  
+
   const handleExport = () => {
     const data = exportData();
     const blob = new Blob([data], { type: 'application/json' });
@@ -26,7 +26,7 @@ export const Header = ({ onNewProject }: HeaderProps) => {
     a.click();
     URL.revokeObjectURL(url);
   };
-  
+
   const handleImport = () => {
     const input = document.createElement('input');
     input.type = 'file';
@@ -46,7 +46,7 @@ export const Header = ({ onNewProject }: HeaderProps) => {
     };
     input.click();
   };
-  
+
   return (
     <header className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-6 py-4">
       <div className="flex items-center justify-between">
@@ -54,7 +54,7 @@ export const Header = ({ onNewProject }: HeaderProps) => {
           <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Project Cicero</h1>
           <span className="text-sm text-gray-500 dark:text-gray-400">Proje Yönetimi</span>
         </div>
-        
+
         <div className="flex items-center gap-2">
           <ViewToggle />
           <ViewPresetManager />
@@ -85,4 +85,3 @@ export const Header = ({ onNewProject }: HeaderProps) => {
     </header>
   );
 };
-

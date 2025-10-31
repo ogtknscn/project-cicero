@@ -29,12 +29,8 @@ export const AutomationView = () => {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-3xl font-bold text-gray-900 dark:text-white">
-            Otomasyon Motorları
-          </h2>
-          <p className="text-gray-600 dark:text-gray-400 mt-1">
-            İş akışlarınızı otomatikleştirin
-          </p>
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Otomasyon Motorları</h2>
+          <p className="text-gray-600 dark:text-gray-400 mt-1">İş akışlarınızı otomatikleştirin</p>
         </div>
         <div className="flex gap-2">
           <Button variant="secondary" size="sm" onClick={() => setShowLogs(!showLogs)}>
@@ -113,4 +109,3 @@ export const AutomationView = () => {
     </div>
   );
 };
-

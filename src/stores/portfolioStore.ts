@@ -77,9 +77,7 @@ export const usePortfolioStore = create<PortfolioStore>()(
         if (existingBudget) {
           set((state) => ({
             budgets: state.budgets.map((b) =>
-              b.projectId === projectId
-                ? { ...b, allocated, currency, lastUpdated: new Date() }
-                : b
+              b.projectId === projectId ? { ...b, allocated, currency, lastUpdated: new Date() } : b
             ),
           }));
         } else {
@@ -101,9 +99,7 @@ export const usePortfolioStore = create<PortfolioStore>()(
       updateSpent: (projectId, spent) => {
         set((state) => ({
           budgets: state.budgets.map((b) =>
-            b.projectId === projectId
-              ? { ...b, spent, lastUpdated: new Date() }
-              : b
+            b.projectId === projectId ? { ...b, spent, lastUpdated: new Date() } : b
           ),
         }));
       },
@@ -117,4 +113,3 @@ export const usePortfolioStore = create<PortfolioStore>()(
     }
   )
 );
-

@@ -22,9 +22,7 @@ export const AgileView = () => {
     return (
       <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-12 text-center">
         <Zap size={48} className="mx-auto text-gray-400 dark:text-gray-600 mb-4" />
-        <p className="text-gray-600 dark:text-gray-400">
-          Agile görünümü için bir proje seçin
-        </p>
+        <p className="text-gray-600 dark:text-gray-400">Agile görünümü için bir proje seçin</p>
       </div>
     );
   }
@@ -33,19 +31,11 @@ export const AgileView = () => {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-3xl font-bold text-gray-900 dark:text-white">
-            Agile Board
-          </h2>
-          <p className="text-gray-600 dark:text-gray-400 mt-1">
-            Sprint ve Epic yönetimi
-          </p>
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Agile Board</h2>
+          <p className="text-gray-600 dark:text-gray-400 mt-1">Sprint ve Epic yönetimi</p>
         </div>
         <div className="flex gap-2">
-          <Button
-            variant="secondary"
-            size="sm"
-            onClick={() => setShowVelocity(!showVelocity)}
-          >
+          <Button variant="secondary" size="sm" onClick={() => setShowVelocity(!showVelocity)}>
             {showVelocity ? 'Sprint Board' : 'Velocity'}
           </Button>
         </div>
@@ -96,4 +86,3 @@ export const AgileView = () => {
     </div>
   );
 };
-

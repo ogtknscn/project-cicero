@@ -9,7 +9,7 @@ interface SidebarProps {
 export const Sidebar = ({ onProjectSelect }: SidebarProps) => {
   const { projects } = useStore();
   const activeProjects = projects.filter((p) => p.status === 'active');
-  
+
   return (
     <aside className="bg-gray-50 border-r border-gray-200 w-80 flex flex-col">
       <div className="p-4">
@@ -18,7 +18,7 @@ export const Sidebar = ({ onProjectSelect }: SidebarProps) => {
           <h2 className="font-semibold text-gray-900">Projeler</h2>
           <span className="ml-auto text-sm text-gray-500">{activeProjects.length}</span>
         </div>
-        
+
         <div className="space-y-3 max-h-[calc(100vh-150px)] overflow-y-auto">
           {activeProjects.length === 0 ? (
             <div className="text-center py-8 text-gray-500">
@@ -26,13 +26,10 @@ export const Sidebar = ({ onProjectSelect }: SidebarProps) => {
               <p className="text-sm mt-2">Yeni proje oluşturun!</p>
             </div>
           ) : (
-            activeProjects.map((project) => (
-              <ProjectCard key={project.id} project={project} />
-            ))
+            activeProjects.map((project) => <ProjectCard key={project.id} project={project} />)
           )}
         </div>
       </div>
     </aside>
   );
 };
-

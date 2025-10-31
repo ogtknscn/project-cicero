@@ -19,10 +19,7 @@ export const EmptyState = ({ icon: Icon, title, description, action }: EmptyStat
       </div>
       <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">{title}</h3>
       <p className="text-sm text-gray-500 dark:text-gray-400 mb-4 max-w-md">{description}</p>
-      {action && (
-        <Button onClick={action.onClick}>{action.label}</Button>
-      )}
+      {action && <Button onClick={action.onClick}>{action.label}</Button>}
     </div>
   );
 };
-

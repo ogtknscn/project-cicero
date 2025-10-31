@@ -43,9 +43,7 @@ export const FolderManager = ({ isOpen, onClose, projectId }: FolderManagerProps
       <div className="space-y-6">
         {/* Add New Folder */}
         <form onSubmit={handleAddFolder} className="space-y-3">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-            Yeni Klasör
-          </h3>
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Yeni Klasör</h3>
           <div className="flex gap-2">
             <Input
               placeholder="Klasör adı"
@@ -80,15 +78,9 @@ export const FolderManager = ({ isOpen, onClose, projectId }: FolderManagerProps
                 >
                   <div className="flex items-center gap-3">
                     <Folder size={20} style={{ color: folder.color }} />
-                    <span className="font-medium text-gray-900 dark:text-white">
-                      {folder.name}
-                    </span>
+                    <span className="font-medium text-gray-900 dark:text-white">{folder.name}</span>
                   </div>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => handleDeleteFolder(folder.id)}
-                  >
+                  <Button variant="ghost" size="sm" onClick={() => handleDeleteFolder(folder.id)}>
                     <Trash2 size={16} className="text-red-500" />
                   </Button>
                 </div>
@@ -106,4 +98,3 @@ export const FolderManager = ({ isOpen, onClose, projectId }: FolderManagerProps
     </Modal>
   );
 };
-

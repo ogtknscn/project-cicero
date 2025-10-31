@@ -9,8 +9,9 @@ interface TimeTrackerProps {
 }
 
 export const TimeTracker = ({ taskId, userId = 'default-user' }: TimeTrackerProps) => {
-  const { entries, activeEntry, startTracking, stopTracking, getTaskTimeSummary, settings } = useTimeStore();
-  
+  const { entries, activeEntry, startTracking, stopTracking, getTaskTimeSummary, settings } =
+    useTimeStore();
+
   const taskEntries = entries.filter((e) => e.taskId === taskId);
   const isActive = activeEntry && taskEntries.some((e) => e.id === activeEntry);
   const summary = getTaskTimeSummary(taskId);
@@ -24,7 +25,7 @@ export const TimeTracker = ({ taskId, userId = 'default-user' }: TimeTrackerProp
     }
   };
 
-  const totalCost = taskSettings?.hourlyRate 
+  const totalCost = taskSettings?.hourlyRate
     ? (summary.totalHours * taskSettings.hourlyRate).toFixed(2)
     : null;
 
@@ -33,16 +34,10 @@ export const TimeTracker = ({ taskId, userId = 'default-user' }: TimeTrackerProp
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <Clock size={18} className="text-gray-500" />
-          <span className="text-sm font-medium">
-            {formatDuration(summary.totalMinutes)}
-          </span>
+          <span className="text-sm font-medium">{formatDuration(summary.totalMinutes)}</span>
         </div>
-        
-        <Button
-          variant={isActive ? 'danger' : 'primary'}
-          size="sm"
-          onClick={handleToggle}
-        >
+
+        <Button variant={isActive ? 'danger' : 'primary'} size="sm" onClick={handleToggle}>
           {isActive ? (
             <>
               <Pause size={16} className="mr-1" />
@@ -76,4 +71,3 @@ export const TimeTracker = ({ taskId, userId = 'default-user' }: TimeTrackerProp
     </div>
   );
 };
-

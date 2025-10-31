@@ -52,9 +52,7 @@ export const DocumentPreview = ({ documentId, isOpen, onClose }: DocumentPreview
         );
       } catch {
         return (
-          <p className="text-center text-gray-500 dark:text-gray-400">
-            Metin dosyası okunamadı
-          </p>
+          <p className="text-center text-gray-500 dark:text-gray-400">Metin dosyası okunamadı</p>
         );
       }
     }
@@ -75,13 +73,10 @@ export const DocumentPreview = ({ documentId, isOpen, onClose }: DocumentPreview
     <Modal isOpen={isOpen} onClose={onClose} title={document.name}>
       <div className="space-y-4">
         {document.description && (
-          <p className="text-gray-600 dark:text-gray-400 text-sm">
-            {document.description}
-          </p>
+          <p className="text-gray-600 dark:text-gray-400 text-sm">{document.description}</p>
         )}
         {renderPreview()}
       </div>
     </Modal>
   );
 };
-

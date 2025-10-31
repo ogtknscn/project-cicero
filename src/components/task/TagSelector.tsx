@@ -38,13 +38,13 @@ export const TagSelector = ({ tags, allTags, onUpdate }: TagSelectorProps) => {
 
   const handleCreateTag = () => {
     if (!newTagName.trim()) return;
-    
+
     const newTag = {
       id: `tag-${Date.now()}`,
       name: newTagName.trim(),
       color: newTagColor,
     };
-    
+
     // Add to allTags (would normally be added to store)
     onUpdate([...tags, newTag.id]);
     setNewTagName('');
@@ -54,10 +54,8 @@ export const TagSelector = ({ tags, allTags, onUpdate }: TagSelectorProps) => {
 
   return (
     <div>
-      <label className="block text-sm font-medium text-gray-700 mb-2">
-        Etiketler
-      </label>
-      
+      <label className="block text-sm font-medium text-gray-700 mb-2">Etiketler</label>
+
       {/* Selected tags */}
       {selectedTags.length > 0 && (
         <div className="flex flex-wrap gap-2 mb-3">
@@ -84,15 +82,11 @@ export const TagSelector = ({ tags, allTags, onUpdate }: TagSelectorProps) => {
       <div className="border border-gray-300 rounded-lg p-3">
         <div className="flex items-center justify-between mb-2">
           <span className="text-xs text-gray-600">Mevcut Etiketler</span>
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => setIsCreating(!isCreating)}
-          >
+          <Button variant="ghost" size="sm" onClick={() => setIsCreating(!isCreating)}>
             <Plus size={14} />
           </Button>
         </div>
-        
+
         <div className="flex flex-wrap gap-2">
           {allTags.map((tag) => {
             const isSelected = tags.includes(tag.id);
@@ -100,7 +94,7 @@ export const TagSelector = ({ tags, allTags, onUpdate }: TagSelectorProps) => {
               <button
                 key={tag.id}
                 type="button"
-                onClick={() => isSelected ? handleRemoveTag(tag.id) : handleAddTag(tag.id)}
+                onClick={() => (isSelected ? handleRemoveTag(tag.id) : handleAddTag(tag.id))}
                 className={`px-2 py-1 rounded text-xs font-medium transition-colors ${
                   isSelected
                     ? 'bg-opacity-80 text-white'
@@ -153,4 +147,3 @@ export const TagSelector = ({ tags, allTags, onUpdate }: TagSelectorProps) => {
     </div>
   );
 };
-

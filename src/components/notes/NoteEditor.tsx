@@ -39,7 +39,10 @@ export const NoteEditor = ({ isOpen, onClose, noteId, projectId }: NoteEditorPro
       title: title.trim(),
       content,
       projectId,
-      tags: tags.split(',').map((t) => t.trim()).filter(Boolean),
+      tags: tags
+        .split(',')
+        .map((t) => t.trim())
+        .filter(Boolean),
     };
 
     if (noteId) {
@@ -110,4 +113,3 @@ export const NoteEditor = ({ isOpen, onClose, noteId, projectId }: NoteEditorPro
     </Modal>
   );
 };
-

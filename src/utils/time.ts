@@ -7,14 +7,14 @@ export function formatDuration(minutes: number): string {
   if (minutes < 60) {
     return `${Math.round(minutes)}m`;
   }
-  
+
   const hours = Math.floor(minutes / 60);
   const mins = Math.round(minutes % 60);
-  
+
   if (mins === 0) {
     return `${hours}h`;
   }
-  
+
   return `${hours}h ${mins}m`;
 }
 
@@ -47,4 +47,3 @@ export function getElapsedTime(startDate: Date): number {
 export function formatDate(date: Date, locale: string = 'tr-TR'): string {
   return new Date(date).toLocaleString(locale);
 }
-

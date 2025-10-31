@@ -32,17 +32,19 @@ export const AutomationLogs = () => {
             <div className="flex items-start justify-between mb-2">
               <div className="flex items-start gap-3">
                 {log.success ? (
-                  <CheckCircle size={20} className="text-green-600 dark:text-green-400 flex-shrink-0 mt-0.5" />
+                  <CheckCircle
+                    size={20}
+                    className="text-green-600 dark:text-green-400 flex-shrink-0 mt-0.5"
+                  />
                 ) : (
-                  <XCircle size={20} className="text-red-600 dark:text-red-400 flex-shrink-0 mt-0.5" />
+                  <XCircle
+                    size={20}
+                    className="text-red-600 dark:text-red-400 flex-shrink-0 mt-0.5"
+                  />
                 )}
                 <div>
-                  <p className="font-medium text-gray-900 dark:text-white">
-                    {log.ruleName}
-                  </p>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
-                    Görev: {log.taskTitle}
-                  </p>
+                  <p className="font-medium text-gray-900 dark:text-white">{log.ruleName}</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">Görev: {log.taskTitle}</p>
                 </div>
               </div>
               <span className="text-xs text-gray-500 dark:text-gray-400">
@@ -72,4 +74,3 @@ export const AutomationLogs = () => {
     </div>
   );
 };
-

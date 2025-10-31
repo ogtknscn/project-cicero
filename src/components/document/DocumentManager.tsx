@@ -23,8 +23,8 @@ export const DocumentManager = ({ projectId, taskId }: DocumentManagerProps) => 
   const documents = taskId
     ? getDocumentsByTask(taskId)
     : activeProjectId
-    ? getDocumentsByProject(activeProjectId)
-    : [];
+      ? getDocumentsByProject(activeProjectId)
+      : [];
   const folders = activeProjectId ? getFoldersByProject(activeProjectId) : [];
 
   if (!activeProjectId) {
@@ -45,11 +45,7 @@ export const DocumentManager = ({ projectId, taskId }: DocumentManagerProps) => 
           {taskId ? 'Görev Dokümanları' : 'Proje Dokümanları'}
         </h3>
         <div className="flex gap-2">
-          <Button
-            variant="secondary"
-            size="sm"
-            onClick={() => setIsFolderManagerOpen(true)}
-          >
+          <Button variant="secondary" size="sm" onClick={() => setIsFolderManagerOpen(true)}>
             <FolderPlus size={16} className="mr-2" />
             Klasör
           </Button>
@@ -115,4 +111,3 @@ export const DocumentManager = ({ projectId, taskId }: DocumentManagerProps) => 
     </div>
   );
 };
-

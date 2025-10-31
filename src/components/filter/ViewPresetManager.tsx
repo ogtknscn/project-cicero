@@ -7,19 +7,16 @@ import { Modal } from '../common/Modal';
 import { Save, Trash2, Eye } from 'lucide-react';
 
 export const ViewPresetManager = () => {
-  const {
-    viewPresets,
-    activeViewPresetId,
-    addViewPreset,
-    deleteViewPreset,
-    setActiveViewPreset,
-  } = useFilterStore();
+  const { viewPresets, activeViewPresetId, addViewPreset, deleteViewPreset, setActiveViewPreset } =
+    useFilterStore();
 
   const { currentView, setView } = useViewStore();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [presetName, setPresetName] = useState('');
-  const [sortBy, setSortBy] = useState<'dueDate' | 'priority' | 'createdAt' | 'updatedAt' | 'title'>('createdAt');
+  const [sortBy, setSortBy] = useState<
+    'dueDate' | 'priority' | 'createdAt' | 'updatedAt' | 'title'
+  >('createdAt');
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
   const [groupBy, setGroupBy] = useState<'status' | 'priority' | 'assignee' | 'none'>('none');
 
@@ -162,7 +159,9 @@ export const ViewPresetManager = () => {
             </h4>
             <ul className="space-y-1 text-gray-600 dark:text-gray-400">
               <li>• Görünüm Tipi: {currentView}</li>
-              <li>• Sıralama: {sortBy} ({sortOrder})</li>
+              <li>
+                • Sıralama: {sortBy} ({sortOrder})
+              </li>
               <li>• Gruplama: {groupBy}</li>
             </ul>
           </div>
@@ -187,4 +186,3 @@ export const ViewPresetManager = () => {
     </div>
   );
 };
-

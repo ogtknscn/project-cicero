@@ -55,4 +55,3 @@ export interface WorkloadAlert {
   message: string;
   createdAt: Date;
 }
-

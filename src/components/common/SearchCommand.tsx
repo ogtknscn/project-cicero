@@ -14,16 +14,17 @@ export const SearchCommand = ({ isOpen, onClose, onSelectTask }: SearchCommandPr
   const { projects } = useStore();
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedIndex, setSelectedIndex] = useState(0);
-  
+
   // Get all tasks from all projects
-  const allTasks = useMemo(() => 
-    projects.flatMap((project) =>
-      project.tasks.map((task) => ({
-        ...task,
-        projectName: project.name,
-        projectColor: project.color,
-      }))
-    ),
+  const allTasks = useMemo(
+    () =>
+      projects.flatMap((project) =>
+        project.tasks.map((task) => ({
+          ...task,
+          projectName: project.name,
+          projectColor: project.color,
+        }))
+      ),
     [projects]
   );
 
@@ -33,18 +34,18 @@ export const SearchCommand = ({ isOpen, onClose, onSelectTask }: SearchCommandPr
     indexTasks(allTasks, index);
     return index;
   }, [allTasks]);
-  
+
   // Filter tasks using FlexSearch
   const filteredTasks = useMemo(() => {
     if (!searchTerm.trim()) return allTasks;
     return searchTasks(searchTerm, allTasks, taskIndex);
   }, [searchTerm, allTasks, taskIndex]);
-  
+
   // Keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (!isOpen) return;
-      
+
       switch (e.key) {
         case 'ArrowDown':
           e.preventDefault();
@@ -67,23 +68,20 @@ export const SearchCommand = ({ isOpen, onClose, onSelectTask }: SearchCommandPr
           break;
       }
     };
-    
+
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isOpen, selectedIndex, filteredTasks, onSelectTask, onClose]);
-  
+
   // Reset selected index when search term changes
   useEffect(() => {
     setSelectedIndex(0);
   }, [searchTerm]);
-  
+
   if (!isOpen) return null;
-  
+
   return (
-    <div
-      className="fixed inset-0 z-50 flex items-start justify-center pt-20"
-      onClick={onClose}
-    >
+    <div className="fixed inset-0 z-50 flex items-start justify-center pt-20" onClick={onClose}>
       <div
         className="bg-white rounded-lg shadow-xl w-full max-w-2xl mx-4 overflow-hidden"
         onClick={(e) => e.stopPropagation()}
@@ -99,14 +97,11 @@ export const SearchCommand = ({ isOpen, onClose, onSelectTask }: SearchCommandPr
             className="flex-1 outline-none text-lg"
             autoFocus
           />
-          <button
-            onClick={onClose}
-            className="text-gray-400 hover:text-gray-600"
-          >
+          <button onClick={onClose} className="text-gray-400 hover:text-gray-600">
             <X size={20} />
           </button>
         </div>
-        
+
         {/* Results */}
         <div className="max-h-96 overflow-y-auto">
           {filteredTasks.length === 0 ? (
@@ -142,7 +137,11 @@ export const SearchCommand = ({ isOpen, onClose, onSelectTask }: SearchCommandPr
                       )}
                     </div>
                     <span className="px-2 py-1 text-xs rounded bg-gray-100 text-gray-700 ml-2">
-                      {task.status === 'todo' ? 'Yapılacak' : task.status === 'in-progress' ? 'Devam' : 'Tamamlandı'}
+                      {task.status === 'todo'
+                        ? 'Yapılacak'
+                        : task.status === 'in-progress'
+                          ? 'Devam'
+                          : 'Tamamlandı'}
                     </span>
                   </div>
                 </button>
@@ -150,7 +149,7 @@ export const SearchCommand = ({ isOpen, onClose, onSelectTask }: SearchCommandPr
             </div>
           )}
         </div>
-        
+
         {/* Keyboard shortcuts hint */}
         <div className="px-4 py-2 border-t border-gray-200 bg-gray-50 text-xs text-gray-500 flex items-center justify-between">
           <div className="flex items-center gap-3">
@@ -164,4 +163,3 @@ export const SearchCommand = ({ isOpen, onClose, onSelectTask }: SearchCommandPr
     </div>
   );
 };
-

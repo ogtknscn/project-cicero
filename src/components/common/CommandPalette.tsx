@@ -1,20 +1,20 @@
 import { useState, useEffect, useMemo } from 'react';
-import { 
-  Search, 
-  Plus, 
-  Download, 
-  Upload, 
-  Moon, 
-  Sun, 
-  LayoutGrid, 
-  List, 
-  Calendar, 
+import {
+  Search,
+  Plus,
+  Download,
+  Upload,
+  Moon,
+  Sun,
+  LayoutGrid,
+  List,
+  Calendar,
   GanttChart,
   BarChart3,
   FileText,
   FilePlus,
   Save,
-  Eye
+  Eye,
 } from 'lucide-react';
 import { useStore } from '../../stores/useStore';
 import { useViewStore } from '../../stores/viewStore';
@@ -38,7 +38,12 @@ interface CommandPaletteProps {
   onNewTask: () => void;
 }
 
-export const CommandPalette = ({ isOpen, onClose, onNewProject, onNewTask }: CommandPaletteProps) => {
+export const CommandPalette = ({
+  isOpen,
+  onClose,
+  onNewProject,
+  onNewTask,
+}: CommandPaletteProps) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedIndex, setSelectedIndex] = useState(0);
   const { exportData, importData, projects, selectedProjectId } = useStore();
@@ -80,125 +85,162 @@ export const CommandPalette = ({ isOpen, onClose, onNewProject, onNewTask }: Com
   };
 
   // Define all available commands
-  const commands: Command[] = useMemo(() => [
-    // Navigation
-    {
-      id: 'view-dashboard',
-      label: 'Dashboard Görünümü',
-      icon: BarChart3,
-      keywords: ['dashboard', 'panel', 'overview'],
-      action: () => { setView('dashboard'); onClose(); },
-      category: 'view',
-    },
-    {
-      id: 'view-board',
-      label: 'Board Görünümü',
-      icon: LayoutGrid,
-      keywords: ['board', 'kanban', 'panel'],
-      action: () => { setView('board'); onClose(); },
-      category: 'view',
-    },
-    {
-      id: 'view-list',
-      label: 'Liste Görünümü',
-      icon: List,
-      keywords: ['list', 'liste'],
-      action: () => { setView('list'); onClose(); },
-      category: 'view',
-    },
-    {
-      id: 'view-timeline',
-      label: 'Timeline Görünümü',
-      icon: GanttChart,
-      keywords: ['timeline', 'gantt', 'zaman'],
-      action: () => { setView('timeline'); onClose(); },
-      category: 'view',
-    },
-    {
-      id: 'view-calendar',
-      label: 'Takvim Görünümü',
-      icon: Calendar,
-      keywords: ['calendar', 'takvim'],
-      action: () => { setView('calendar'); onClose(); },
-      category: 'view',
-    },
-    // Actions
-    {
-      id: 'new-project',
-      label: 'Yeni Proje Oluştur',
-      icon: Plus,
-      keywords: ['new', 'project', 'yeni', 'proje'],
-      action: () => { onNewProject(); onClose(); },
-      category: 'action',
-    },
-    {
-      id: 'new-task',
-      label: 'Yeni Görev Oluştur',
-      icon: FilePlus,
-      keywords: ['new', 'task', 'yeni', 'görev'],
-      action: () => { onNewTask(); onClose(); },
-      category: 'action',
-    },
-    // Export
-    {
-      id: 'export-json',
-      label: 'JSON Olarak Dışa Aktar',
-      icon: Download,
-      keywords: ['export', 'download', 'json', 'dışa', 'aktar'],
-      action: handleExportJSON,
-      category: 'export',
-    },
-    {
-      id: 'export-csv',
-      label: 'CSV Olarak Dışa Aktar',
-      icon: FileText,
-      keywords: ['export', 'csv', 'excel', 'dışa', 'aktar'],
-      action: () => { exportProjectsToCSV(projects); onClose(); },
-      category: 'export',
-    },
-    {
-      id: 'export-pdf',
-      label: 'PDF Olarak Dışa Aktar',
-      icon: FileText,
-      keywords: ['export', 'pdf', 'dışa', 'aktar'],
-      action: () => { exportAllProjectsToPDF(projects); onClose(); },
-      category: 'export',
-    },
-    {
-      id: 'import-json',
-      label: 'JSON İçe Aktar',
-      icon: Upload,
-      keywords: ['import', 'upload', 'json', 'içe', 'aktar'],
-      action: handleImportJSON,
-      category: 'action',
-    },
-    // Theme
-    {
-      id: 'theme-light',
-      label: 'Açık Tema',
-      icon: Sun,
-      keywords: ['theme', 'light', 'tema', 'açık'],
-      action: () => { setTheme('light'); onClose(); },
-      category: 'theme',
-    },
-    {
-      id: 'theme-dark',
-      label: 'Koyu Tema',
-      icon: Moon,
-      keywords: ['theme', 'dark', 'tema', 'koyu'],
-      action: () => { setTheme('dark'); onClose(); },
-      category: 'theme',
-    },
-  ], [setView, onNewProject, onNewTask, exportData, importData, projects, setTheme]);
+  const commands: Command[] = useMemo(
+    () => [
+      // Navigation
+      {
+        id: 'view-dashboard',
+        label: 'Dashboard Görünümü',
+        icon: BarChart3,
+        keywords: ['dashboard', 'panel', 'overview'],
+        action: () => {
+          setView('dashboard');
+          onClose();
+        },
+        category: 'view',
+      },
+      {
+        id: 'view-board',
+        label: 'Board Görünümü',
+        icon: LayoutGrid,
+        keywords: ['board', 'kanban', 'panel'],
+        action: () => {
+          setView('board');
+          onClose();
+        },
+        category: 'view',
+      },
+      {
+        id: 'view-list',
+        label: 'Liste Görünümü',
+        icon: List,
+        keywords: ['list', 'liste'],
+        action: () => {
+          setView('list');
+          onClose();
+        },
+        category: 'view',
+      },
+      {
+        id: 'view-timeline',
+        label: 'Timeline Görünümü',
+        icon: GanttChart,
+        keywords: ['timeline', 'gantt', 'zaman'],
+        action: () => {
+          setView('timeline');
+          onClose();
+        },
+        category: 'view',
+      },
+      {
+        id: 'view-calendar',
+        label: 'Takvim Görünümü',
+        icon: Calendar,
+        keywords: ['calendar', 'takvim'],
+        action: () => {
+          setView('calendar');
+          onClose();
+        },
+        category: 'view',
+      },
+      // Actions
+      {
+        id: 'new-project',
+        label: 'Yeni Proje Oluştur',
+        icon: Plus,
+        keywords: ['new', 'project', 'yeni', 'proje'],
+        action: () => {
+          onNewProject();
+          onClose();
+        },
+        category: 'action',
+      },
+      {
+        id: 'new-task',
+        label: 'Yeni Görev Oluştur',
+        icon: FilePlus,
+        keywords: ['new', 'task', 'yeni', 'görev'],
+        action: () => {
+          onNewTask();
+          onClose();
+        },
+        category: 'action',
+      },
+      // Export
+      {
+        id: 'export-json',
+        label: 'JSON Olarak Dışa Aktar',
+        icon: Download,
+        keywords: ['export', 'download', 'json', 'dışa', 'aktar'],
+        action: handleExportJSON,
+        category: 'export',
+      },
+      {
+        id: 'export-csv',
+        label: 'CSV Olarak Dışa Aktar',
+        icon: FileText,
+        keywords: ['export', 'csv', 'excel', 'dışa', 'aktar'],
+        action: () => {
+          exportProjectsToCSV(projects);
+          onClose();
+        },
+        category: 'export',
+      },
+      {
+        id: 'export-pdf',
+        label: 'PDF Olarak Dışa Aktar',
+        icon: FileText,
+        keywords: ['export', 'pdf', 'dışa', 'aktar'],
+        action: () => {
+          exportAllProjectsToPDF(projects);
+          onClose();
+        },
+        category: 'export',
+      },
+      {
+        id: 'import-json',
+        label: 'JSON İçe Aktar',
+        icon: Upload,
+        keywords: ['import', 'upload', 'json', 'içe', 'aktar'],
+        action: handleImportJSON,
+        category: 'action',
+      },
+      // Theme
+      {
+        id: 'theme-light',
+        label: 'Açık Tema',
+        icon: Sun,
+        keywords: ['theme', 'light', 'tema', 'açık'],
+        action: () => {
+          setTheme('light');
+          onClose();
+        },
+        category: 'theme',
+      },
+      {
+        id: 'theme-dark',
+        label: 'Koyu Tema',
+        icon: Moon,
+        keywords: ['theme', 'dark', 'tema', 'koyu'],
+        action: () => {
+          setTheme('dark');
+          onClose();
+        },
+        category: 'theme',
+      },
+    ],
+    [setView, onNewProject, onNewTask, exportData, importData, projects, setTheme]
+  );
 
   // Filter commands based on search term
   const filteredCommands = useMemo(() => {
     if (!searchTerm.trim()) return commands;
-    
+
     const term = searchTerm.toLowerCase();
-    return commands.filter((cmd) =>
-      cmd.label.toLowerCase().includes(term) ||
-      cmd.keywords.some((keyword) => keyword.toLowerCase().includes(term))
+    return commands.filter(
+      (cmd) =>
+        cmd.label.toLowerCase().includes(term) ||
+        cmd.keywords.some((keyword) => keyword.toLowerCase().includes(term))
     );
   }, [searchTerm, commands]);
 
@@ -206,7 +248,7 @@ export const CommandPalette = ({ isOpen, onClose, onNewProject, onNewTask }: Com
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (!isOpen) return;
-      
+
       switch (e.key) {
         case 'ArrowDown':
           e.preventDefault();
@@ -228,7 +270,7 @@ export const CommandPalette = ({ isOpen, onClose, onNewProject, onNewTask }: Com
           break;
       }
     };
-    
+
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isOpen, selectedIndex, filteredCommands, onClose]);
@@ -257,13 +299,16 @@ export const CommandPalette = ({ isOpen, onClose, onNewProject, onNewTask }: Com
   };
 
   // Group commands by category
-  const groupedCommands = filteredCommands.reduce((acc, cmd) => {
-    if (!acc[cmd.category]) {
-      acc[cmd.category] = [];
-    }
-    acc[cmd.category].push(cmd);
-    return acc;
-  }, {} as Record<string, Command[]>);
+  const groupedCommands = filteredCommands.reduce(
+    (acc, cmd) => {
+      if (!acc[cmd.category]) {
+        acc[cmd.category] = [];
+      }
+      acc[cmd.category].push(cmd);
+      return acc;
+    },
+    {} as Record<string, Command[]>
+  );
 
   return (
     <div
@@ -291,9 +336,7 @@ export const CommandPalette = ({ isOpen, onClose, onNewProject, onNewTask }: Com
         {/* Commands List */}
         <div className="max-h-[400px] overflow-y-auto">
           {Object.keys(groupedCommands).length === 0 ? (
-            <div className="p-8 text-center text-gray-500 dark:text-gray-400">
-              Komut bulunamadı
-            </div>
+            <div className="p-8 text-center text-gray-500 dark:text-gray-400">Komut bulunamadı</div>
           ) : (
             Object.entries(groupedCommands).map(([category, cmds]) => (
               <div key={category} className="py-2">
@@ -329,13 +372,27 @@ export const CommandPalette = ({ isOpen, onClose, onNewProject, onNewTask }: Com
         {/* Footer */}
         <div className="flex items-center justify-between px-4 py-3 bg-gray-50 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 text-xs text-gray-500 dark:text-gray-400">
           <div className="flex gap-4">
-            <span><kbd className="px-1.5 py-0.5 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded">↑↓</kbd> navigate</span>
-            <span><kbd className="px-1.5 py-0.5 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded">↵</kbd> select</span>
-            <span><kbd className="px-1.5 py-0.5 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded">esc</kbd> close</span>
+            <span>
+              <kbd className="px-1.5 py-0.5 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded">
+                ↑↓
+              </kbd>{' '}
+              navigate
+            </span>
+            <span>
+              <kbd className="px-1.5 py-0.5 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded">
+                ↵
+              </kbd>{' '}
+              select
+            </span>
+            <span>
+              <kbd className="px-1.5 py-0.5 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded">
+                esc
+              </kbd>{' '}
+              close
+            </span>
           </div>
         </div>
       </div>
     </div>
   );
 };
-

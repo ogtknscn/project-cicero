@@ -35,20 +35,14 @@ export const PortfolioView = () => {
     ? projects.filter((p) => activePortfolio.projectIds.includes(p.id))
     : [];
 
-  const projectHealthData = portfolioProjects.map((project) =>
-    calculateProjectHealth(project)
-  );
+  const projectHealthData = portfolioProjects.map((project) => calculateProjectHealth(project));
 
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-3xl font-bold text-gray-900 dark:text-white">
-            Portfolio Yönetimi
-          </h2>
-          <p className="text-gray-600 dark:text-gray-400 mt-1">
-            Tüm projeleri tek yerden yönetin
-          </p>
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Portfolio Yönetimi</h2>
+          <p className="text-gray-600 dark:text-gray-400 mt-1">Tüm projeleri tek yerden yönetin</p>
         </div>
         <Button onClick={handleNewPortfolio}>
           <Plus size={16} className="mr-2" />
@@ -177,4 +171,3 @@ export const PortfolioView = () => {
     </div>
   );
 };
-

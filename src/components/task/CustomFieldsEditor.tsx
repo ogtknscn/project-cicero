@@ -21,7 +21,7 @@ export const CustomFieldsEditor = ({ customFields, values, onUpdate }: CustomFie
         return (
           <input
             type="text"
-            value={value as string || ''}
+            value={(value as string) || ''}
             onChange={(e) => updateField(field.id, e.target.value)}
             className="w-full px-3 py-2 border border-gray-300 rounded-lg"
             placeholder={field.name}
@@ -31,7 +31,7 @@ export const CustomFieldsEditor = ({ customFields, values, onUpdate }: CustomFie
         return (
           <input
             type="number"
-            value={value as number || ''}
+            value={(value as number) || ''}
             onChange={(e) => updateField(field.id, parseFloat(e.target.value) || 0)}
             className="w-full px-3 py-2 border border-gray-300 rounded-lg"
             placeholder={field.name}
@@ -41,7 +41,7 @@ export const CustomFieldsEditor = ({ customFields, values, onUpdate }: CustomFie
         return (
           <input
             type="date"
-            value={value as string || ''}
+            value={(value as string) || ''}
             onChange={(e) => updateField(field.id, e.target.value)}
             className="w-full px-3 py-2 border border-gray-300 rounded-lg"
           />
@@ -49,7 +49,7 @@ export const CustomFieldsEditor = ({ customFields, values, onUpdate }: CustomFie
       case 'select':
         return (
           <select
-            value={value as string || ''}
+            value={(value as string) || ''}
             onChange={(e) => updateField(field.id, e.target.value)}
             className="w-full px-3 py-2 border border-gray-300 rounded-lg"
           >
@@ -66,7 +66,7 @@ export const CustomFieldsEditor = ({ customFields, values, onUpdate }: CustomFie
           <label className="flex items-center gap-2">
             <input
               type="checkbox"
-              checked={value as boolean || false}
+              checked={(value as boolean) || false}
               onChange={(e) => updateField(field.id, e.target.checked)}
               className="w-4 h-4 text-primary-600 border-gray-300 rounded"
             />
@@ -77,7 +77,7 @@ export const CustomFieldsEditor = ({ customFields, values, onUpdate }: CustomFie
         return (
           <input
             type="url"
-            value={value as string || ''}
+            value={(value as string) || ''}
             onChange={(e) => updateField(field.id, e.target.value)}
             className="w-full px-3 py-2 border border-gray-300 rounded-lg"
             placeholder="https://..."
@@ -90,9 +90,7 @@ export const CustomFieldsEditor = ({ customFields, values, onUpdate }: CustomFie
 
   return (
     <div>
-      <label className="block text-sm font-medium text-gray-700 mb-2">
-        Özel Alanlar
-      </label>
+      <label className="block text-sm font-medium text-gray-700 mb-2">Özel Alanlar</label>
       <div className="space-y-3">
         {customFields.map((field) => (
           <div key={field.id}>
@@ -106,4 +104,3 @@ export const CustomFieldsEditor = ({ customFields, values, onUpdate }: CustomFie
     </div>
   );
 };
-

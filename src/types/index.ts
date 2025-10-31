@@ -37,6 +37,10 @@ export interface Project {
     totalTasks: number;
     completedTasks: number;
   };
-  customFields?: { id: string; name: string; type: 'text' | 'number' | 'date' | 'select' | 'checkbox' | 'url'; options?: string[] }[];
+  customFields?: {
+    id: string;
+    name: string;
+    type: 'text' | 'number' | 'date' | 'select' | 'checkbox' | 'url';
+    options?: string[];
+  }[];
 }
-

@@ -4,9 +4,8 @@ import { Portfolio, ProjectHealth, PortfolioMetrics } from '../types/portfolio';
 // Calculate project health score (0-100)
 export const calculateProjectHealth = (project: Project): ProjectHealth => {
   const { tasks, metadata } = project;
-  const completionRate = metadata.totalTasks > 0
-    ? (metadata.completedTasks / metadata.totalTasks) * 100
-    : 0;
+  const completionRate =
+    metadata.totalTasks > 0 ? (metadata.completedTasks / metadata.totalTasks) * 100 : 0;
 
   // Count overdue tasks
   const overdueTasks = tasks.filter(
@@ -20,7 +19,7 @@ export const calculateProjectHealth = (project: Project): ProjectHealth => {
 
   // Calculate health score
   let healthScore = 100;
-  
+
   // Deduct for low completion
   if (completionRate < 50) healthScore -= 30;
   else if (completionRate < 75) healthScore -= 15;
@@ -55,18 +54,10 @@ export const calculatePortfolioMetrics = (
   portfolio: Portfolio,
   projects: Project[]
 ): PortfolioMetrics => {
-  const portfolioProjects = projects.filter((p) =>
-    portfolio.projectIds.includes(p.id)
-  );
+  const portfolioProjects = projects.filter((p) => portfolio.projectIds.includes(p.id));
 
-  const totalTasks = portfolioProjects.reduce(
-    (sum, p) => sum + p.metadata.totalTasks,
-    0
-  );
-  const completedTasks = portfolioProjects.reduce(
-    (sum, p) => sum + p.metadata.completedTasks,
-    0
-  );
+  const totalTasks = portfolioProjects.reduce((sum, p) => sum + p.metadata.totalTasks, 0);
+  const completedTasks = portfolioProjects.reduce((sum, p) => sum + p.metadata.completedTasks, 0);
 
   const allTasks = portfolioProjects.flatMap((p) => p.tasks);
   const overdueTasks = allTasks.filter(
@@ -79,12 +70,11 @@ export const calculatePortfolioMetrics = (
   const avgCompletionRate = totalTasks > 0 ? (completedTasks / totalTasks) * 100 : 0;
 
   // Calculate average health score
-  const healthScores = portfolioProjects.map((p) =>
-    calculateProjectHealth(p).healthScore
-  );
-  const avgHealthScore = healthScores.length > 0
-    ? healthScores.reduce((sum, s) => sum + s, 0) / healthScores.length
-    : 100;
+  const healthScores = portfolioProjects.map((p) => calculateProjectHealth(p).healthScore);
+  const avgHealthScore =
+    healthScores.length > 0
+      ? healthScores.reduce((sum, s) => sum + s, 0) / healthScores.length
+      : 100;
 
   // Risk score (inverse of health)
   const riskScore = 100 - avgHealthScore;
@@ -96,9 +86,10 @@ export const calculatePortfolioMetrics = (
     overdueTasks,
     highPriorityTasks,
     avgCompletionRate: Math.round(avgCompletionRate),
-    budgetUtilization: portfolio.metadata.totalBudget > 0
-      ? (portfolio.metadata.spentBudget / portfolio.metadata.totalBudget) * 100
-      : 0,
+    budgetUtilization:
+      portfolio.metadata.totalBudget > 0
+        ? (portfolio.metadata.spentBudget / portfolio.metadata.totalBudget) * 100
+        : 0,
     timeUtilization: avgCompletionRate, // Simplified
     riskScore: Math.round(riskScore),
   };
@@ -117,4 +108,3 @@ export const getHealthBgColor = (healthScore: number): string => {
   if (healthScore >= 50) return 'bg-yellow-100 dark:bg-yellow-900/20';
   return 'bg-red-100 dark:bg-red-900/20';
 };
-

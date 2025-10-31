@@ -44,4 +44,3 @@ export const TaskDistributionChart = ({ todo, inProgress, done }: TaskDistributi
     </div>
   );
 };
-

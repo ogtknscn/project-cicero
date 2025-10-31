@@ -3,13 +3,18 @@ import { FileText, FileSpreadsheet, Download } from 'lucide-react';
 import { Button } from '../common/Button';
 import { Modal } from '../common/Modal';
 import { useStore } from '../../stores/useStore';
-import { exportProjectsToCSV, exportTasksToCSV, exportProjectToPDF, exportAllProjectsToPDF } from '../../utils/export';
+import {
+  exportProjectsToCSV,
+  exportTasksToCSV,
+  exportProjectToPDF,
+  exportAllProjectsToPDF,
+} from '../../utils/export';
 
 export const ExportMenu = () => {
   const { projects, selectedProjectId } = useStore();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  
-  const selectedProject = projects.find(p => p.id === selectedProjectId);
+
+  const selectedProject = projects.find((p) => p.id === selectedProjectId);
 
   const handleExportCurrentProjectCSV = () => {
     if (selectedProject) {
@@ -47,11 +52,7 @@ export const ExportMenu = () => {
         <span className="hidden sm:inline ml-2">Export</span>
       </Button>
 
-      <Modal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        title="Dışa Aktar"
-      >
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} title="Dışa Aktar">
         <div className="space-y-4">
           <p className="text-sm text-gray-600 dark:text-gray-400">
             Projelerinizi ve görevlerinizi PDF veya CSV formatında dışa aktarın.
@@ -115,7 +116,8 @@ export const ExportMenu = () => {
 
           <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-3">
             <p className="text-sm text-blue-800 dark:text-blue-200">
-              <strong>Not:</strong> CSV formatı Excel'de açılabilir. PDF formatı görsel rapor için uygundur.
+              <strong>Not:</strong> CSV formatı Excel'de açılabilir. PDF formatı görsel rapor için
+              uygundur.
             </p>
           </div>
         </div>
@@ -123,4 +125,3 @@ export const ExportMenu = () => {
     </>
   );
 };
-

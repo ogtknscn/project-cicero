@@ -24,9 +24,7 @@ export const AutomationRuleList = ({ onEdit }: AutomationRuleListProps) => {
           <div className="flex items-start justify-between mb-4">
             <div className="flex-1">
               <div className="flex items-center gap-3 mb-2">
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                  {rule.name}
-                </h3>
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{rule.name}</h3>
                 {rule.enabled ? (
                   <span className="px-2 py-0.5 text-xs bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 rounded">
                     Aktif
@@ -38,9 +36,7 @@ export const AutomationRuleList = ({ onEdit }: AutomationRuleListProps) => {
                 )}
               </div>
               {rule.description && (
-                <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
-                  {rule.description}
-                </p>
+                <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">{rule.description}</p>
               )}
             </div>
             <div className="flex gap-2">
@@ -90,9 +86,7 @@ export const AutomationRuleList = ({ onEdit }: AutomationRuleListProps) => {
               <span>{rule.executionCount} kez çalıştı</span>
             </div>
             {rule.lastExecuted && (
-              <div>
-                Son: {new Date(rule.lastExecuted).toLocaleString('tr-TR')}
-              </div>
+              <div>Son: {new Date(rule.lastExecuted).toLocaleString('tr-TR')}</div>
             )}
           </div>
         </div>
@@ -100,4 +94,3 @@ export const AutomationRuleList = ({ onEdit }: AutomationRuleListProps) => {
     </div>
   );
 };
-

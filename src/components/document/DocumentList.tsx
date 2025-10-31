@@ -39,9 +39,7 @@ export const DocumentList = ({ documents, folderId }: DocumentListProps) => {
     return (
       <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-12 text-center">
         <FileText size={48} className="mx-auto text-gray-400 dark:text-gray-600 mb-4" />
-        <p className="text-gray-600 dark:text-gray-400">
-          Henüz doküman yok
-        </p>
+        <p className="text-gray-600 dark:text-gray-400">Henüz doküman yok</p>
       </div>
     );
   }
@@ -76,9 +74,7 @@ export const DocumentList = ({ documents, folderId }: DocumentListProps) => {
                   <div className="flex items-center gap-3">
                     <span className="text-2xl">{getFileIcon(doc.type)}</span>
                     <div>
-                      <p className="font-medium text-gray-900 dark:text-white">
-                        {doc.name}
-                      </p>
+                      <p className="font-medium text-gray-900 dark:text-white">{doc.name}</p>
                       {doc.description && (
                         <p className="text-sm text-gray-500 dark:text-gray-400">
                           {doc.description}
@@ -105,9 +101,7 @@ export const DocumentList = ({ documents, folderId }: DocumentListProps) => {
                 <td className="px-6 py-4 text-sm text-gray-600 dark:text-gray-400">
                   <div>
                     <p>{new Date(doc.uploadedAt).toLocaleDateString('tr-TR')}</p>
-                    {doc.uploadedBy && (
-                      <p className="text-xs">{doc.uploadedBy}</p>
-                    )}
+                    {doc.uploadedBy && <p className="text-xs">{doc.uploadedBy}</p>}
                   </div>
                 </td>
                 <td className="px-6 py-4 text-sm text-gray-600 dark:text-gray-400">
@@ -139,12 +133,7 @@ export const DocumentList = ({ documents, folderId }: DocumentListProps) => {
                     >
                       <Download size={14} />
                     </Button>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => handleDelete(doc)}
-                      title="Sil"
-                    >
+                    <Button variant="ghost" size="sm" onClick={() => handleDelete(doc)} title="Sil">
                       <Trash2 size={14} className="text-red-500" />
                     </Button>
                   </div>
@@ -175,4 +164,3 @@ export const DocumentList = ({ documents, folderId }: DocumentListProps) => {
     </>
   );
 };
-

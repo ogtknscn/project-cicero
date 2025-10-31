@@ -10,7 +10,9 @@ interface AutomationStore {
   maxLogs: number;
 
   // Rule actions
-  addRule: (rule: Omit<AutomationRule, 'id' | 'createdAt' | 'updatedAt' | 'executionCount'>) => void;
+  addRule: (
+    rule: Omit<AutomationRule, 'id' | 'createdAt' | 'updatedAt' | 'executionCount'>
+  ) => void;
   updateRule: (id: string, updates: Partial<AutomationRule>) => void;
   deleteRule: (id: string) => void;
   toggleRule: (id: string) => void;
@@ -42,7 +44,9 @@ export const useAutomationStore = create<AutomationStore>()(
         set((state) => ({
           rules: [...state.rules, newRule],
         }));
-        useToastStore.getState().addToast({ message: `Otomasyon "${rule.name}" oluşturuldu`, type: 'success' });
+        useToastStore
+          .getState()
+          .addToast({ message: `Otomasyon "${rule.name}" oluşturuldu`, type: 'success' });
       },
 
       updateRule: (id, updates) => {
@@ -116,4 +120,3 @@ export const useAutomationStore = create<AutomationStore>()(
     }
   )
 );
-

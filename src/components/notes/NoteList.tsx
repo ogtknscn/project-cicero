@@ -29,10 +29,14 @@ export const NoteList = ({ notes, onEdit }: NoteListProps) => {
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white flex-1">
               {note.title}
             </h3>
-            <Button variant="ghost" size="sm" onClick={(e) => {
-              e.stopPropagation();
-              onEdit(note.id);
-            }}>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={(e) => {
+                e.stopPropagation();
+                onEdit(note.id);
+              }}
+            >
               <Edit2 size={14} />
             </Button>
           </div>
@@ -62,4 +66,3 @@ export const NoteList = ({ notes, onEdit }: NoteListProps) => {
     </div>
   );
 };
-

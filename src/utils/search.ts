@@ -32,7 +32,7 @@ export const indexTasks = (tasks: Task[], index: FlexSearch.Index) => {
       task.priority,
       task.status,
     ].join(' ');
-    
+
     index.add(task.id, searchText);
   });
 };
@@ -40,21 +40,14 @@ export const indexTasks = (tasks: Task[], index: FlexSearch.Index) => {
 // Index projects
 export const indexProjects = (projects: Project[], index: FlexSearch.Index) => {
   projects.forEach((project) => {
-    const searchText = [
-      project.name,
-      project.description || '',
-    ].join(' ');
-    
+    const searchText = [project.name, project.description || ''].join(' ');
+
     index.add(project.id, searchText);
   });
 };
 
 // Search tasks
-export const searchTasks = (
-  query: string,
-  tasks: Task[],
-  index: FlexSearch.Index
-): Task[] => {
+export const searchTasks = (query: string, tasks: Task[], index: FlexSearch.Index): Task[] => {
   if (!query.trim()) return tasks;
 
   const results = index.search(query);
@@ -72,4 +65,3 @@ export const searchProjects = (
   const results = index.search(query);
   return projects.filter((project) => results.includes(project.id));
 };
-

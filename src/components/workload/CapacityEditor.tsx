@@ -12,7 +12,8 @@ interface CapacityEditorProps {
 }
 
 export const CapacityEditor = ({ isOpen, onClose, userId }: CapacityEditorProps) => {
-  const { userCapacities, addUserCapacity, updateUserCapacity, deleteUserCapacity } = useWorkloadStore();
+  const { userCapacities, addUserCapacity, updateUserCapacity, deleteUserCapacity } =
+    useWorkloadStore();
   const existingCapacity = userCapacities.find((c) => c.userId === userId);
 
   const [userName, setUserName] = useState('');
@@ -163,4 +164,3 @@ export const CapacityEditor = ({ isOpen, onClose, userId }: CapacityEditorProps)
     </Modal>
   );
 };
-

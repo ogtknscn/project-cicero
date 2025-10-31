@@ -43,9 +43,7 @@ export const useFilterStore = create<FilterStore>()(
 
       updateFilterPreset: (id, updates) => {
         set((state) => ({
-          filterPresets: state.filterPresets.map((p) =>
-            p.id === id ? { ...p, ...updates } : p
-          ),
+          filterPresets: state.filterPresets.map((p) => (p.id === id ? { ...p, ...updates } : p)),
         }));
       },
 
@@ -74,17 +72,14 @@ export const useFilterStore = create<FilterStore>()(
 
       updateViewPreset: (id, updates) => {
         set((state) => ({
-          viewPresets: state.viewPresets.map((p) =>
-            p.id === id ? { ...p, ...updates } : p
-          ),
+          viewPresets: state.viewPresets.map((p) => (p.id === id ? { ...p, ...updates } : p)),
         }));
       },
 
       deleteViewPreset: (id) => {
         set((state) => ({
           viewPresets: state.viewPresets.filter((p) => p.id !== id),
-          activeViewPresetId:
-            state.activeViewPresetId === id ? null : state.activeViewPresetId,
+          activeViewPresetId: state.activeViewPresetId === id ? null : state.activeViewPresetId,
         }));
       },
 
@@ -97,4 +92,3 @@ export const useFilterStore = create<FilterStore>()(
     }
   )
 );
-

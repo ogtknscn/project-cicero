@@ -8,24 +8,24 @@ interface QuickStatusToggleProps {
 
 export const QuickStatusToggle = ({ task }: QuickStatusToggleProps) => {
   const { updateTask } = useStore();
-  
+
   const statusIcons = {
-    'todo': <Clock size={14} className="text-gray-500" />,
+    todo: <Clock size={14} className="text-gray-500" />,
     'in-progress': <Clock size={14} className="text-blue-500" />,
-    'done': <Check size={14} className="text-green-500" />,
+    done: <Check size={14} className="text-green-500" />,
   };
-  
+
   const nextStatus = {
-    'todo': 'in-progress',
+    todo: 'in-progress',
     'in-progress': 'done',
-    'done': 'todo',
+    done: 'todo',
   }[task.status] as 'todo' | 'in-progress' | 'done';
-  
+
   const handleToggle = (e: React.MouseEvent) => {
     e.stopPropagation();
     updateTask(task.id, { status: nextStatus });
   };
-  
+
   return (
     <button
       onClick={handleToggle}
@@ -36,4 +36,3 @@ export const QuickStatusToggle = ({ task }: QuickStatusToggleProps) => {
     </button>
   );
 };
-

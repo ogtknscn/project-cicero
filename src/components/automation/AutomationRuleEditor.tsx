@@ -204,7 +204,9 @@ export const AutomationRuleEditor = ({ isOpen, onClose, ruleId }: AutomationRule
             </Button>
           </div>
           {conditions.length === 0 ? (
-            <p className="text-sm text-gray-500 dark:text-gray-400">Koşul yok (her zaman çalışır)</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400">
+              Koşul yok (her zaman çalışır)
+            </p>
           ) : (
             <div className="space-y-2">
               {conditions.map((condition, index) => (

@@ -14,11 +14,8 @@ export const ListView = ({ tasks, onEdit }: ListViewProps) => {
           Henüz görev yok
         </div>
       ) : (
-        tasks.map((task) => (
-          <TaskCard key={task.id} task={task} onEdit={onEdit} />
-        ))
+        tasks.map((task) => <TaskCard key={task.id} task={task} onEdit={onEdit} />)
       )}
     </div>
   );
 };
-

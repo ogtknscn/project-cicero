@@ -110,24 +110,16 @@ export const FilterPresetManager = ({ currentFilters }: FilterPresetManagerProps
               Kaydedilecek Filtreler:
             </h4>
             <ul className="space-y-1 text-gray-600 dark:text-gray-400">
-              {currentFilters.status && (
-                <li>• Durum: {currentFilters.status.join(', ')}</li>
-              )}
-              {currentFilters.priority && (
-                <li>• Öncelik: {currentFilters.priority.join(', ')}</li>
-              )}
+              {currentFilters.status && <li>• Durum: {currentFilters.status.join(', ')}</li>}
+              {currentFilters.priority && <li>• Öncelik: {currentFilters.priority.join(', ')}</li>}
               {currentFilters.tags && currentFilters.tags.length > 0 && (
                 <li>• Etiketler: {currentFilters.tags.join(', ')}</li>
               )}
-              {currentFilters.search && (
-                <li>• Arama: "{currentFilters.search}"</li>
-              )}
+              {currentFilters.search && <li>• Arama: "{currentFilters.search}"</li>}
               {!currentFilters.status &&
                 !currentFilters.priority &&
                 (!currentFilters.tags || currentFilters.tags.length === 0) &&
-                !currentFilters.search && (
-                  <li className="text-gray-400">Filtre yok</li>
-                )}
+                !currentFilters.search && <li className="text-gray-400">Filtre yok</li>}
             </ul>
           </div>
 
@@ -151,4 +143,3 @@ export const FilterPresetManager = ({ currentFilters }: FilterPresetManagerProps
     </div>
   );
 };
-

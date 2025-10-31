@@ -3,7 +3,11 @@ import { useAgileStore } from '../../stores/agileStore';
 import { useStore } from '../../stores/useStore';
 import { Button } from '../common/Button';
 import { Plus, Play } from 'lucide-react';
-import { getSprintStatusLabel, getSprintStatusColor, calculateSprintMetrics } from '../../utils/agile';
+import {
+  getSprintStatusLabel,
+  getSprintStatusColor,
+  calculateSprintMetrics,
+} from '../../utils/agile';
 
 interface SprintBoardProps {
   projectId: string;
@@ -19,7 +23,7 @@ export const SprintBoard = ({ projectId }: SprintBoardProps) => {
 
   const handleCreateSprint = () => {
     if (!newSprintName.trim()) return;
-    
+
     const startDate = new Date();
     const endDate = new Date();
     endDate.setDate(endDate.getDate() + 14); // 2 week sprint
@@ -54,7 +58,9 @@ export const SprintBoard = ({ projectId }: SprintBoardProps) => {
 
       {/* Sprint List */}
       {sprints.length === 0 ? (
-        <p className="text-center text-gray-500 dark:text-gray-400 py-8">Henüz sprint oluşturulmadı</p>
+        <p className="text-center text-gray-500 dark:text-gray-400 py-8">
+          Henüz sprint oluşturulmadı
+        </p>
       ) : (
         <div className="space-y-3">
           {sprints.map((sprint) => (
@@ -66,16 +72,21 @@ export const SprintBoard = ({ projectId }: SprintBoardProps) => {
                 <div>
                   <div className="flex items-center gap-2">
                     <h4 className="font-semibold text-gray-900 dark:text-white">{sprint.name}</h4>
-                    <span className={`px-2 py-0.5 text-xs rounded ${getSprintStatusColor(sprint.status)}`}>
+                    <span
+                      className={`px-2 py-0.5 text-xs rounded ${getSprintStatusColor(sprint.status)}`}
+                    >
                       {getSprintStatusLabel(sprint.status)}
                     </span>
                   </div>
                   <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                    {new Date(sprint.startDate).toLocaleDateString('tr-TR')} - {new Date(sprint.endDate).toLocaleDateString('tr-TR')}
+                    {new Date(sprint.startDate).toLocaleDateString('tr-TR')} -{' '}
+                    {new Date(sprint.endDate).toLocaleDateString('tr-TR')}
                   </p>
                 </div>
                 <div className="text-right">
-                  <p className="text-sm text-gray-600 dark:text-gray-400">{sprint.taskIds.length} görev</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                    {sprint.taskIds.length} görev
+                  </p>
                 </div>
               </div>
             </div>
@@ -85,4 +96,3 @@ export const SprintBoard = ({ projectId }: SprintBoardProps) => {
     </div>
   );
 };
-

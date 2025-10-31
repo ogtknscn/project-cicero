@@ -35,7 +35,7 @@ export const RecentActivity = () => {
     const diff = Date.now() - date.getTime();
     const minutes = Math.floor(diff / 60000);
     const hours = Math.floor(minutes / 60);
-    
+
     if (minutes < 1) return 'Az önce';
     if (minutes < 60) return `${minutes} dakika önce`;
     if (hours < 24) return `${hours} saat önce`;
@@ -49,7 +49,10 @@ export const RecentActivity = () => {
       </h3>
       <div className="space-y-3">
         {activities.map((activity) => (
-          <div key={activity.id} className="flex items-start gap-3 pb-3 border-b border-gray-200 dark:border-gray-700 last:border-0 last:pb-0">
+          <div
+            key={activity.id}
+            className="flex items-start gap-3 pb-3 border-b border-gray-200 dark:border-gray-700 last:border-0 last:pb-0"
+          >
             <div className="mt-1">
               <Clock size={16} className="text-gray-400 dark:text-gray-500" />
             </div>
@@ -65,4 +68,3 @@ export const RecentActivity = () => {
     </div>
   );
 };
-

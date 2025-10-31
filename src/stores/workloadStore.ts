@@ -41,7 +41,9 @@ export const useWorkloadStore = create<WorkloadStore>()(
         set((state) => ({
           userCapacities: [...state.userCapacities, newCapacity],
         }));
-        useToastStore.getState().addToast({ message: 'Kullanıcı kapasitesi eklendi', type: 'success' });
+        useToastStore
+          .getState()
+          .addToast({ message: 'Kullanıcı kapasitesi eklendi', type: 'success' });
       },
 
       updateUserCapacity: (userId, updates) => {
@@ -57,7 +59,9 @@ export const useWorkloadStore = create<WorkloadStore>()(
         set((state) => ({
           userCapacities: state.userCapacities.filter((c) => c.userId !== userId),
         }));
-        useToastStore.getState().addToast({ message: 'Kullanıcı kapasitesi silindi', type: 'warning' });
+        useToastStore
+          .getState()
+          .addToast({ message: 'Kullanıcı kapasitesi silindi', type: 'warning' });
       },
 
       addWorkloadEntry: (entry) => {
@@ -161,4 +165,3 @@ export const useWorkloadStore = create<WorkloadStore>()(
     }
   )
 );
-

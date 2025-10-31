@@ -58,9 +58,7 @@ export const BudgetTracker = ({ portfolioProjects }: BudgetTrackerProps) => {
   return (
     <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6">
       <div className="flex items-center justify-between mb-4">
-        <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
-          Bütçe Takibi
-        </h3>
+        <h3 className="text-xl font-semibold text-gray-900 dark:text-white">Bütçe Takibi</h3>
         <DollarSign size={24} className="text-green-600 dark:text-green-400" />
       </div>
 
@@ -80,11 +78,15 @@ export const BudgetTracker = ({ portfolioProjects }: BudgetTrackerProps) => {
         </div>
         <div>
           <p className="text-sm text-gray-600 dark:text-gray-400">Kullanım</p>
-          <p className={`text-xl font-bold ${
-            totalUtilization > 100 ? 'text-red-600 dark:text-red-400' :
-            totalUtilization > 80 ? 'text-yellow-600 dark:text-yellow-400' :
-            'text-green-600 dark:text-green-400'
-          }`}>
+          <p
+            className={`text-xl font-bold ${
+              totalUtilization > 100
+                ? 'text-red-600 dark:text-red-400'
+                : totalUtilization > 80
+                  ? 'text-yellow-600 dark:text-yellow-400'
+                  : 'text-green-600 dark:text-green-400'
+            }`}
+          >
             {totalUtilization.toFixed(0)}%
           </p>
         </div>
@@ -100,9 +102,8 @@ export const BudgetTracker = ({ portfolioProjects }: BudgetTrackerProps) => {
           portfolioProjects.map((project) => {
             const budget = getBudget(project.id);
             const isEditing = editingProjectId === project.id;
-            const utilization = budget && budget.allocated > 0
-              ? (budget.spent / budget.allocated) * 100
-              : 0;
+            const utilization =
+              budget && budget.allocated > 0 ? (budget.spent / budget.allocated) * 100 : 0;
 
             return (
               <div
@@ -110,15 +111,9 @@ export const BudgetTracker = ({ portfolioProjects }: BudgetTrackerProps) => {
                 className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg"
               >
                 <div className="flex items-start justify-between mb-2">
-                  <h4 className="font-semibold text-gray-900 dark:text-white">
-                    {project.name}
-                  </h4>
+                  <h4 className="font-semibold text-gray-900 dark:text-white">{project.name}</h4>
                   {!isEditing && (
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => handleEdit(project.id)}
-                    >
+                    <Button variant="ghost" size="sm" onClick={() => handleEdit(project.id)}>
                       <Edit2 size={14} />
                     </Button>
                   )}
@@ -173,31 +168,36 @@ export const BudgetTracker = ({ portfolioProjects }: BudgetTrackerProps) => {
                   <div>
                     <div className="flex justify-between text-sm mb-2">
                       <span className="text-gray-600 dark:text-gray-400">
-                        {budget.spent.toLocaleString('tr-TR')} / {budget.allocated.toLocaleString('tr-TR')} {budget.currency}
+                        {budget.spent.toLocaleString('tr-TR')} /{' '}
+                        {budget.allocated.toLocaleString('tr-TR')} {budget.currency}
                       </span>
-                      <span className={`font-semibold ${
-                        utilization > 100 ? 'text-red-600 dark:text-red-400' :
-                        utilization > 80 ? 'text-yellow-600 dark:text-yellow-400' :
-                        'text-green-600 dark:text-green-400'
-                      }`}>
+                      <span
+                        className={`font-semibold ${
+                          utilization > 100
+                            ? 'text-red-600 dark:text-red-400'
+                            : utilization > 80
+                              ? 'text-yellow-600 dark:text-yellow-400'
+                              : 'text-green-600 dark:text-green-400'
+                        }`}
+                      >
                         {utilization.toFixed(0)}%
                       </span>
                     </div>
                     <div className="h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
                       <div
                         className={`h-full transition-all ${
-                          utilization > 100 ? 'bg-red-500' :
-                          utilization > 80 ? 'bg-yellow-500' :
-                          'bg-green-500'
+                          utilization > 100
+                            ? 'bg-red-500'
+                            : utilization > 80
+                              ? 'bg-yellow-500'
+                              : 'bg-green-500'
                         }`}
                         style={{ width: `${Math.min(utilization, 100)}%` }}
                       />
                     </div>
                   </div>
                 ) : (
-                  <p className="text-sm text-gray-500 dark:text-gray-400">
-                    Bütçe belirlenmedi
-                  </p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">Bütçe belirlenmedi</p>
                 )}
               </div>
             );
@@ -207,4 +207,3 @@ export const BudgetTracker = ({ portfolioProjects }: BudgetTrackerProps) => {
     </div>
   );
 };
-

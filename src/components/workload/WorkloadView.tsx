@@ -30,12 +30,8 @@ export const WorkloadView = () => {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-3xl font-bold text-gray-900 dark:text-white">
-            İş Yükü Yönetimi
-          </h2>
-          <p className="text-gray-600 dark:text-gray-400 mt-1">
-            Takım kapasite ve iş yükü analizi
-          </p>
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white">İş Yükü Yönetimi</h2>
+          <p className="text-gray-600 dark:text-gray-400 mt-1">Takım kapasite ve iş yükü analizi</p>
         </div>
         <Button onClick={handleNewCapacity}>
           <Plus size={16} className="mr-2" />
@@ -106,4 +102,3 @@ export const WorkloadView = () => {
     </div>
   );
 };
-

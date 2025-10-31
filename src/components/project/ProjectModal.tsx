@@ -15,11 +15,11 @@ interface ProjectModalProps {
 export const ProjectModal = ({ isOpen, onClose, projectId }: ProjectModalProps) => {
   const { projects, addProject, updateProject } = useStore();
   const project = projectId ? projects.find((p) => p.id === projectId) : null;
-  
+
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [color, setColor] = useState('#0ea5e9');
-  
+
   useEffect(() => {
     if (project) {
       setName(project.name);
@@ -31,12 +31,12 @@ export const ProjectModal = ({ isOpen, onClose, projectId }: ProjectModalProps) 
       setColor('#0ea5e9');
     }
   }, [project, isOpen]);
-  
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!name.trim()) return;
-    
+
     if (project) {
       updateProject(project.id, {
         name: name.trim(),
@@ -60,20 +60,14 @@ export const ProjectModal = ({ isOpen, onClose, projectId }: ProjectModalProps) 
       };
       addProject(newProject);
     }
-    
+
     onClose();
   };
-  
-  const colors = [
-    '#0ea5e9', '#8b5cf6', '#ef4444', '#10b981', '#f59e0b', '#ec4899'
-  ];
-  
+
+  const colors = ['#0ea5e9', '#8b5cf6', '#ef4444', '#10b981', '#f59e0b', '#ec4899'];
+
   return (
-    <Modal
-      isOpen={isOpen}
-      onClose={onClose}
-      title={project ? 'Projeyi Düzenle' : 'Yeni Proje'}
-    >
+    <Modal isOpen={isOpen} onClose={onClose} title={project ? 'Projeyi Düzenle' : 'Yeni Proje'}>
       <form onSubmit={handleSubmit} className="space-y-4">
         <Input
           label="Proje Adı"
@@ -82,7 +76,7 @@ export const ProjectModal = ({ isOpen, onClose, projectId }: ProjectModalProps) 
           onChange={(e) => setName(e.target.value)}
           required
         />
-        
+
         <Textarea
           label="Açıklama"
           placeholder="Proje hakkında notlar..."
@@ -90,11 +84,9 @@ export const ProjectModal = ({ isOpen, onClose, projectId }: ProjectModalProps) 
           onChange={(e) => setDescription(e.target.value)}
           rows={3}
         />
-        
+
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Renk
-          </label>
+          <label className="block text-sm font-medium text-gray-700 mb-2">Renk</label>
           <div className="flex gap-2">
             {colors.map((c) => (
               <button
@@ -109,17 +101,14 @@ export const ProjectModal = ({ isOpen, onClose, projectId }: ProjectModalProps) 
             ))}
           </div>
         </div>
-        
+
         <div className="flex justify-end gap-2 pt-4">
           <Button type="button" variant="secondary" onClick={onClose}>
             İptal
           </Button>
-          <Button type="submit">
-            {project ? 'Güncelle' : 'Oluştur'}
-          </Button>
+          <Button type="submit">{project ? 'Güncelle' : 'Oluştur'}</Button>
         </div>
       </form>
     </Modal>
   );
 };
-

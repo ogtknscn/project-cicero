@@ -45,8 +45,8 @@ export const HealthScore = ({ projects }: HealthScoreProps) => {
               project.riskLevel === 'high'
                 ? 'border-red-200 dark:border-red-800'
                 : project.riskLevel === 'medium'
-                ? 'border-yellow-200 dark:border-yellow-800'
-                : 'border-green-200 dark:border-green-800'
+                  ? 'border-yellow-200 dark:border-yellow-800'
+                  : 'border-green-200 dark:border-green-800'
             }`}
           >
             <div className="flex items-start justify-between mb-2">
@@ -70,26 +70,32 @@ export const HealthScore = ({ projects }: HealthScoreProps) => {
               </div>
               <div>
                 <p className="text-gray-600 dark:text-gray-400">Zamanında</p>
-                <p className={`font-semibold ${project.onTime ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`}>
+                <p
+                  className={`font-semibold ${project.onTime ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`}
+                >
                   {project.onTime ? 'Evet' : 'Hayır'}
                 </p>
               </div>
               <div>
                 <p className="text-gray-600 dark:text-gray-400">Sorunlar</p>
-                <p className="font-semibold text-gray-900 dark:text-white">
-                  {project.issueCount}
-                </p>
+                <p className="font-semibold text-gray-900 dark:text-white">{project.issueCount}</p>
               </div>
               <div>
                 <p className="text-gray-600 dark:text-gray-400">Risk</p>
-                <p className={`font-semibold capitalize ${
-                  project.riskLevel === 'high'
-                    ? 'text-red-600 dark:text-red-400'
+                <p
+                  className={`font-semibold capitalize ${
+                    project.riskLevel === 'high'
+                      ? 'text-red-600 dark:text-red-400'
+                      : project.riskLevel === 'medium'
+                        ? 'text-yellow-600 dark:text-yellow-400'
+                        : 'text-green-600 dark:text-green-400'
+                  }`}
+                >
+                  {project.riskLevel === 'high'
+                    ? 'Yüksek'
                     : project.riskLevel === 'medium'
-                    ? 'text-yellow-600 dark:text-yellow-400'
-                    : 'text-green-600 dark:text-green-400'
-                }`}>
-                  {project.riskLevel === 'high' ? 'Yüksek' : project.riskLevel === 'medium' ? 'Orta' : 'Düşük'}
+                      ? 'Orta'
+                      : 'Düşük'}
                 </p>
               </div>
             </div>
@@ -102,8 +108,8 @@ export const HealthScore = ({ projects }: HealthScoreProps) => {
                     project.healthScore >= 75
                       ? 'bg-green-500'
                       : project.healthScore >= 50
-                      ? 'bg-yellow-500'
-                      : 'bg-red-500'
+                        ? 'bg-yellow-500'
+                        : 'bg-red-500'
                   }`}
                   style={{ width: `${project.healthScore}%` }}
                 />
@@ -115,4 +121,3 @@ export const HealthScore = ({ projects }: HealthScoreProps) => {
     </div>
   );
 };
-

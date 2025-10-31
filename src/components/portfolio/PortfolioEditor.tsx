@@ -58,7 +58,7 @@ export const PortfolioEditor = ({ isOpen, onClose, portfolioId }: PortfolioEdito
   };
 
   const handleDelete = () => {
-    if (portfolioId && confirm('Bu portfolio\'yu silmek istediğinize emin misiniz?')) {
+    if (portfolioId && confirm("Bu portfolio'yu silmek istediğinize emin misiniz?")) {
       deletePortfolio(portfolioId);
       onClose();
     }
@@ -66,9 +66,7 @@ export const PortfolioEditor = ({ isOpen, onClose, portfolioId }: PortfolioEdito
 
   const toggleProject = (projectId: string) => {
     setSelectedProjectIds((prev) =>
-      prev.includes(projectId)
-        ? prev.filter((id) => id !== projectId)
-        : [...prev, projectId]
+      prev.includes(projectId) ? prev.filter((id) => id !== projectId) : [...prev, projectId]
     );
   };
 
@@ -167,4 +165,3 @@ export const PortfolioEditor = ({ isOpen, onClose, portfolioId }: PortfolioEdito
     </Modal>
   );
 };
-

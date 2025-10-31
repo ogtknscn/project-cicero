@@ -59,7 +59,9 @@ export const useDocumentStore = create<DocumentStore>()(
           versions: [...state.versions, initialVersion],
         }));
 
-        useToastStore.getState().addToast({ message: `Doküman "${doc.name}" yüklendi`, type: 'success' });
+        useToastStore
+          .getState()
+          .addToast({ message: `Doküman "${doc.name}" yüklendi`, type: 'success' });
       },
 
       updateDocument: (id, updates) => {
@@ -115,11 +117,15 @@ export const useDocumentStore = create<DocumentStore>()(
           ),
         }));
 
-        useToastStore.getState().addToast({ message: `Yeni versiyon oluşturuldu (v${newVersion})`, type: 'success' });
+        useToastStore
+          .getState()
+          .addToast({ message: `Yeni versiyon oluşturuldu (v${newVersion})`, type: 'success' });
       },
 
       getVersions: (documentId) => {
-        return get().versions.filter((v) => v.documentId === documentId).sort((a, b) => b.version - a.version);
+        return get()
+          .versions.filter((v) => v.documentId === documentId)
+          .sort((a, b) => b.version - a.version);
       },
 
       addFolder: (folder) => {
@@ -131,14 +137,14 @@ export const useDocumentStore = create<DocumentStore>()(
         set((state) => ({
           folders: [...state.folders, newFolder],
         }));
-        useToastStore.getState().addToast({ message: `Klasör "${folder.name}" oluşturuldu`, type: 'success' });
+        useToastStore
+          .getState()
+          .addToast({ message: `Klasör "${folder.name}" oluşturuldu`, type: 'success' });
       },
 
       updateFolder: (id, updates) => {
         set((state) => ({
-          folders: state.folders.map((f) =>
-            f.id === id ? { ...f, ...updates } : f
-          ),
+          folders: state.folders.map((f) => (f.id === id ? { ...f, ...updates } : f)),
         }));
       },
 
@@ -147,7 +153,9 @@ export const useDocumentStore = create<DocumentStore>()(
         set((state) => ({
           folders: state.folders.filter((f) => f.id !== id),
         }));
-        useToastStore.getState().addToast({ message: `Klasör "${folder?.name}" silindi`, type: 'warning' });
+        useToastStore
+          .getState()
+          .addToast({ message: `Klasör "${folder?.name}" silindi`, type: 'warning' });
       },
 
       getFoldersByProject: (projectId) => {
@@ -159,4 +167,3 @@ export const useDocumentStore = create<DocumentStore>()(
     }
   )
 );
-

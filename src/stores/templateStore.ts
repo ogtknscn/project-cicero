@@ -34,14 +34,14 @@ export const useTemplateStore = create<TemplateStore>()(
         set((state) => ({
           taskTemplates: [...state.taskTemplates, newTemplate],
         }));
-        useToastStore.getState().addToast({ message: 'Görev şablonu oluşturuldu', type: 'success' });
+        useToastStore
+          .getState()
+          .addToast({ message: 'Görev şablonu oluşturuldu', type: 'success' });
       },
 
       updateTaskTemplate: (id, updates) => {
         set((state) => ({
-          taskTemplates: state.taskTemplates.map((t) =>
-            t.id === id ? { ...t, ...updates } : t
-          ),
+          taskTemplates: state.taskTemplates.map((t) => (t.id === id ? { ...t, ...updates } : t)),
         }));
         useToastStore.getState().addToast({ message: 'Görev şablonu güncellendi', type: 'info' });
       },
@@ -62,7 +62,9 @@ export const useTemplateStore = create<TemplateStore>()(
         set((state) => ({
           projectTemplates: [...state.projectTemplates, newTemplate],
         }));
-        useToastStore.getState().addToast({ message: 'Proje şablonu oluşturuldu', type: 'success' });
+        useToastStore
+          .getState()
+          .addToast({ message: 'Proje şablonu oluşturuldu', type: 'success' });
       },
 
       updateProjectTemplate: (id, updates) => {
@@ -86,4 +88,3 @@ export const useTemplateStore = create<TemplateStore>()(
     }
   )
 );
-

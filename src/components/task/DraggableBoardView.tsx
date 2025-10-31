@@ -9,10 +9,7 @@ import {
   useSensors,
   useDroppable,
 } from '@dnd-kit/core';
-import {
-  SortableContext,
-  verticalListSortingStrategy,
-} from '@dnd-kit/sortable';
+import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { Task } from '../../types';
 import { TaskCard } from './TaskCard';
 import { useStore } from '../../stores/useStore';
@@ -32,7 +29,7 @@ export const DraggableBoardView = ({
 }: DraggableBoardViewProps) => {
   const { updateTask } = useStore();
   const [activeId, setActiveId] = useState<string | null>(null);
-  
+
   const sensors = useSensors(
     useSensor(PointerSensor, {
       activationConstraint: {
@@ -40,41 +37,37 @@ export const DraggableBoardView = ({
       },
     })
   );
-  
+
   const handleDragStart = (event: DragStartEvent) => {
     setActiveId(event.active.id as string);
   };
-  
+
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
-    
+
     if (!over) {
       setActiveId(null);
       return;
     }
-    
+
     const taskId = active.id as string;
     const overId = over.id as string;
-    
+
     // Only update if dropping in a valid status column
     const validStatuses = ['todo', 'in-progress', 'done'];
     if (validStatuses.includes(overId)) {
       updateTask(taskId, { status: overId as 'todo' | 'in-progress' | 'done' });
     }
-    
+
     setActiveId(null);
   };
-  
+
   const activeTask = [...todoTasks, ...inProgressTasks, ...doneTasks].find(
     (t) => t.id === activeId
   );
-  
+
   return (
-    <DndContext
-      sensors={sensors}
-      onDragStart={handleDragStart}
-      onDragEnd={handleDragEnd}
-    >
+    <DndContext sensors={sensors} onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Todo Column */}
         <DroppableColumn id="todo" count={todoTasks.length}>
@@ -93,7 +86,7 @@ export const DraggableBoardView = ({
             </div>
           </SortableContext>
         </DroppableColumn>
-        
+
         {/* In Progress Column */}
         <DroppableColumn id="in-progress" count={inProgressTasks.length}>
           <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-4">
@@ -111,7 +104,7 @@ export const DraggableBoardView = ({
             </div>
           </SortableContext>
         </DroppableColumn>
-        
+
         {/* Done Column */}
         <DroppableColumn id="done" count={doneTasks.length}>
           <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-4">
@@ -130,10 +123,8 @@ export const DraggableBoardView = ({
           </SortableContext>
         </DroppableColumn>
       </div>
-      
-      <DragOverlay>
-        {activeTask && <TaskCard task={activeTask} onEdit={onEdit} />}
-      </DragOverlay>
+
+      <DragOverlay>{activeTask && <TaskCard task={activeTask} onEdit={onEdit} />}</DragOverlay>
     </DndContext>
   );
 };
@@ -144,23 +135,23 @@ const SortableTaskCard = ({ task, onEdit }: { task: Task; onEdit: (task: Task) =
 };
 
 // Droppable Column component
-const DroppableColumn = ({ 
-  id, 
-  count, 
-  children 
-}: { 
-  id: string; 
-  count: number; 
+const DroppableColumn = ({
+  id,
+  count,
+  children,
+}: {
+  id: string;
+  count: number;
   children: React.ReactNode;
 }) => {
   const { setNodeRef, isOver } = useDroppable({ id });
-  
+
   return (
     <div
       ref={setNodeRef}
       className={`flex flex-col p-4 rounded-lg transition-colors ${
-        isOver 
-          ? 'bg-blue-50 dark:bg-blue-900/20 border-2 border-blue-300 dark:border-blue-700' 
+        isOver
+          ? 'bg-blue-50 dark:bg-blue-900/20 border-2 border-blue-300 dark:border-blue-700'
           : 'bg-gray-50 dark:bg-gray-800/50 border-2 border-transparent'
       }`}
     >
@@ -173,4 +164,3 @@ const DroppableColumn = ({
     </div>
   );
 };
-

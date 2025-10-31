@@ -50,4 +50,3 @@ export const ListItemSkeleton = () => (
     </div>
   </div>
 );
-

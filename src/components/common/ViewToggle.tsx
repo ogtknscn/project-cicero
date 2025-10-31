@@ -1,10 +1,22 @@
-import { LayoutGrid, List, Calendar, GanttChart, BarChart3, Users, Briefcase, FileText, Zap, Target, BookOpen } from 'lucide-react';
+import {
+  LayoutGrid,
+  List,
+  Calendar,
+  GanttChart,
+  BarChart3,
+  Users,
+  Briefcase,
+  FileText,
+  Zap,
+  Target,
+  BookOpen,
+} from 'lucide-react';
 import { useViewStore, ViewType } from '../../stores/viewStore';
 import { Button } from './Button';
 
 export const ViewToggle = () => {
   const { currentView, setView } = useViewStore();
-  
+
   const views = [
     { id: 'dashboard' as ViewType, icon: BarChart3, label: 'Dashboard' },
     { id: 'board' as ViewType, icon: LayoutGrid, label: 'Board' },
@@ -18,21 +30,19 @@ export const ViewToggle = () => {
     { id: 'notes' as ViewType, icon: BookOpen, label: 'Wiki' },
     { id: 'calendar' as ViewType, icon: Calendar, label: 'Takvim' },
   ];
-  
+
   return (
     <div className="flex items-center gap-1 bg-gray-100 p-1 rounded-lg">
       {views.map((view) => {
         const Icon = view.icon;
         const isActive = currentView === view.id;
-        
+
         return (
           <button
             key={view.id}
             onClick={() => setView(view.id)}
             className={`flex items-center gap-1 px-3 py-1.5 rounded transition-colors ${
-              isActive
-                ? 'bg-white text-primary-600 shadow-sm'
-                : 'text-gray-600 hover:text-gray-900'
+              isActive ? 'bg-white text-primary-600 shadow-sm' : 'text-gray-600 hover:text-gray-900'
             }`}
             title={view.label}
           >
@@ -44,4 +54,3 @@ export const ViewToggle = () => {
     </div>
   );
 };
-

@@ -48,4 +48,3 @@ export interface BudgetEntry {
   currency: string;
   lastUpdated: Date;
 }
-

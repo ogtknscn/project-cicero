@@ -41,7 +41,9 @@ export const EpicManager = ({ projectId }: EpicManagerProps) => {
       </div>
 
       {epics.length === 0 ? (
-        <p className="text-center text-gray-500 dark:text-gray-400 py-4">Henüz epic oluşturulmadı</p>
+        <p className="text-center text-gray-500 dark:text-gray-400 py-4">
+          Henüz epic oluşturulmadı
+        </p>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
           {epics.map((epic) => (
@@ -50,7 +52,10 @@ export const EpicManager = ({ projectId }: EpicManagerProps) => {
               className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg"
             >
               <div className="flex items-start gap-2">
-                <Target size={18} className="text-primary-600 dark:text-primary-400 flex-shrink-0 mt-0.5" />
+                <Target
+                  size={18}
+                  className="text-primary-600 dark:text-primary-400 flex-shrink-0 mt-0.5"
+                />
                 <div className="flex-1">
                   <h4 className="font-medium text-gray-900 dark:text-white">{epic.name}</h4>
                   <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
@@ -65,4 +70,3 @@ export const EpicManager = ({ projectId }: EpicManagerProps) => {
     </div>
   );
 };
-

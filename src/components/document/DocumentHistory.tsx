@@ -87,4 +87,3 @@ export const DocumentHistory = ({ documentId, isOpen, onClose }: DocumentHistory
     </Modal>
   );
 };
-

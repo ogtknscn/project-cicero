@@ -8,13 +8,17 @@ interface TaskDependenciesProps {
   onUpdateDependencies: (dependsOn: string[]) => void;
 }
 
-export const TaskDependencies = ({ task, allTasks, onUpdateDependencies }: TaskDependenciesProps) => {
+export const TaskDependencies = ({
+  task,
+  allTasks,
+  onUpdateDependencies,
+}: TaskDependenciesProps) => {
   const availableTasks = allTasks.filter((t) => t.id !== task.id);
   const selectedDependencies = task.dependsOn || [];
-  
+
   const toggleDependency = (taskId: string) => {
     const isSelected = selectedDependencies.includes(taskId);
-    
+
     if (isSelected) {
       // Kaldır
       onUpdateDependencies(selectedDependencies.filter((id) => id !== taskId));
@@ -23,25 +27,25 @@ export const TaskDependencies = ({ task, allTasks, onUpdateDependencies }: TaskD
       onUpdateDependencies([...selectedDependencies, taskId]);
     }
   };
-  
+
   const getTaskTitle = (taskId: string) => {
     return allTasks.find((t) => t.id === taskId)?.title || taskId;
   };
-  
+
   return (
     <div>
       <label className="block text-sm font-medium text-gray-700 mb-2">
         <Link2 size={16} className="inline mr-2" />
         Bağımlılıklar
       </label>
-      
+
       {/* Seçili bağımlılıklar */}
       {selectedDependencies.length > 0 && (
         <div className="mb-3 flex flex-wrap gap-2">
           {selectedDependencies.map((depId) => {
             const depTask = allTasks.find((t) => t.id === depId);
             if (!depTask) return null;
-            
+
             return (
               <div
                 key={depId}
@@ -60,18 +64,16 @@ export const TaskDependencies = ({ task, allTasks, onUpdateDependencies }: TaskD
           })}
         </div>
       )}
-      
+
       {/* Mevcut görevler listesi */}
       <div className="border border-gray-300 rounded-lg max-h-40 overflow-y-auto">
         {availableTasks.length === 0 ? (
-          <p className="text-sm text-gray-500 p-3 text-center">
-            Bağımlılık seçmek için görev yok
-          </p>
+          <p className="text-sm text-gray-500 p-3 text-center">Bağımlılık seçmek için görev yok</p>
         ) : (
           <ul className="divide-y divide-gray-200">
             {availableTasks.map((t) => {
               const isSelected = selectedDependencies.includes(t.id);
-              
+
               return (
                 <li key={t.id}>
                   <button
@@ -92,7 +94,7 @@ export const TaskDependencies = ({ task, allTasks, onUpdateDependencies }: TaskD
           </ul>
         )}
       </div>
-      
+
       {selectedDependencies.length > 0 && (
         <p className="text-xs text-gray-500 mt-2">
           Bu görev, seçili görevler tamamlanmadan başlayamaz
@@ -101,4 +103,3 @@ export const TaskDependencies = ({ task, allTasks, onUpdateDependencies }: TaskD
     </div>
   );
 };
-

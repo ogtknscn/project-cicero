@@ -16,4 +16,3 @@ export interface ProjectTemplate {
   taskTemplates?: Omit<Task, 'id' | 'projectId' | 'createdAt' | 'updatedAt'>[];
   createdAt: Date;
 }
-

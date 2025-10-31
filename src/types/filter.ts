@@ -24,4 +24,3 @@ export interface ViewPreset {
   groupBy?: 'status' | 'priority' | 'assignee' | 'none';
   createdAt: Date;
 }
-

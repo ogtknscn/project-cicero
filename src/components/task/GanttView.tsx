@@ -14,25 +14,30 @@ export const GanttView = ({ tasks }: GanttViewProps) => {
       end: t.dueDate ? new Date(t.dueDate) : new Date(),
     }));
 
-  const minDate = dates.length > 0 
-    ? new Date(Math.min(...dates.map((d) => d.start.getTime())))
-    : new Date();
-  
-  const maxDate = dates.length > 0
-    ? new Date(Math.max(...dates.map((d) => d.end.getTime())))
-    : new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
+  const minDate =
+    dates.length > 0 ? new Date(Math.min(...dates.map((d) => d.start.getTime()))) : new Date();
+
+  const maxDate =
+    dates.length > 0
+      ? new Date(Math.max(...dates.map((d) => d.end.getTime())))
+      : new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
 
   const totalDays = differenceInDays(maxDate, minDate) + 1;
   const today = new Date();
 
   const getTaskPosition = (task: Task) => {
     const start = task.startDate ? new Date(task.startDate) : task.createdAt;
-    const end = task.dueDate ? new Date(task.dueDate) : new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
-    
+    const end = task.dueDate
+      ? new Date(task.dueDate)
+      : new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
+
     const left = differenceInDays(start, minDate);
     const width = differenceInDays(end, start);
-    
-    return { left: `${(left / totalDays) * 100}%`, width: `${Math.max(width / totalDays * 100, 5)}%` };
+
+    return {
+      left: `${(left / totalDays) * 100}%`,
+      width: `${Math.max((width / totalDays) * 100, 5)}%`,
+    };
   };
 
   return (
@@ -56,7 +61,7 @@ export const GanttView = ({ tasks }: GanttViewProps) => {
         {tasks.map((task) => {
           const { left, width } = getTaskPosition(task);
           const isOverdue = task.dueDate && new Date(task.dueDate) < today;
-          
+
           return (
             <div key={task.id} className="flex border-b border-gray-200 hover:bg-gray-50">
               <div className="w-64 p-3 border-r border-gray-300 flex items-center">
@@ -74,12 +79,12 @@ export const GanttView = ({ tasks }: GanttViewProps) => {
                     task.status === 'done'
                       ? 'bg-green-500'
                       : task.status === 'in-progress'
-                      ? 'bg-blue-500'
-                      : task.priority === 'high'
-                      ? 'bg-red-500'
-                      : task.priority === 'medium'
-                      ? 'bg-yellow-500'
-                      : 'bg-gray-400'
+                        ? 'bg-blue-500'
+                        : task.priority === 'high'
+                          ? 'bg-red-500'
+                          : task.priority === 'medium'
+                            ? 'bg-yellow-500'
+                            : 'bg-gray-400'
                   } ${isOverdue ? 'ring-2 ring-red-600' : ''}`}
                   style={{ left, width, top: '8px' }}
                   title={`${task.title} - ${task.status}`}
@@ -98,4 +103,3 @@ export const GanttView = ({ tasks }: GanttViewProps) => {
     </div>
   );
 };
-

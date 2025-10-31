@@ -49,7 +49,9 @@ export const useAgileStore = create<AgileStore>()(
         set((state) => ({
           sprints: [...state.sprints, newSprint],
         }));
-        useToastStore.getState().addToast({ message: `Sprint "${sprint.name}" oluşturuldu`, type: 'success' });
+        useToastStore
+          .getState()
+          .addToast({ message: `Sprint "${sprint.name}" oluşturuldu`, type: 'success' });
       },
 
       updateSprint: (id, updates) => {
@@ -66,7 +68,9 @@ export const useAgileStore = create<AgileStore>()(
         set((state) => ({
           sprints: state.sprints.filter((s) => s.id !== id),
         }));
-        useToastStore.getState().addToast({ message: `"${sprint?.name}" silindi`, type: 'warning' });
+        useToastStore
+          .getState()
+          .addToast({ message: `"${sprint?.name}" silindi`, type: 'warning' });
       },
 
       addTaskToSprint: (sprintId, taskId) => {
@@ -105,7 +109,9 @@ export const useAgileStore = create<AgileStore>()(
         set((state) => ({
           epics: [...state.epics, newEpic],
         }));
-        useToastStore.getState().addToast({ message: `Epic "${epic.name}" oluşturuldu`, type: 'success' });
+        useToastStore
+          .getState()
+          .addToast({ message: `Epic "${epic.name}" oluşturuldu`, type: 'success' });
       },
 
       updateEpic: (id, updates) => {
@@ -177,4 +183,3 @@ export const useAgileStore = create<AgileStore>()(
     }
   )
 );
-

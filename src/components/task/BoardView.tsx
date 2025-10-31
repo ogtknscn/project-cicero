@@ -26,7 +26,7 @@ export const BoardView = ({ todoTasks, inProgressTasks, doneTasks, onEdit }: Boa
           )}
         </div>
       </div>
-      
+
       <div>
         <h3 className="text-lg font-semibold text-gray-700 mb-4">
           Devam Eden ({inProgressTasks.length})
@@ -42,7 +42,7 @@ export const BoardView = ({ todoTasks, inProgressTasks, doneTasks, onEdit }: Boa
           )}
         </div>
       </div>
-      
+
       <div>
         <h3 className="text-lg font-semibold text-gray-700 mb-4">
           Tamamlanan ({doneTasks.length})
@@ -61,4 +61,3 @@ export const BoardView = ({ todoTasks, inProgressTasks, doneTasks, onEdit }: Boa
     </div>
   );
 };
-

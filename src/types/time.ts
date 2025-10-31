@@ -24,4 +24,3 @@ export interface TimeSummary {
   billedMinutes: number;
   unbilledMinutes: number;
 }
-

@@ -14,4 +14,3 @@ export interface CustomFieldDefinition {
   type: CustomFieldType;
   options?: string[];
 }
-

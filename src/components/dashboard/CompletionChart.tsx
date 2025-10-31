@@ -1,5 +1,14 @@
 import React from 'react';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+  Legend,
+} from 'recharts';
 import { Project } from '../../types';
 
 interface CompletionChartProps {
@@ -11,9 +20,10 @@ export const CompletionChart = ({ projects }: CompletionChartProps) => {
     name: project.name.substring(0, 10),
     completed: project.metadata.completedTasks,
     total: project.metadata.totalTasks,
-    percentage: project.metadata.totalTasks > 0 
-      ? Math.round((project.metadata.completedTasks / project.metadata.totalTasks) * 100)
-      : 0,
+    percentage:
+      project.metadata.totalTasks > 0
+        ? Math.round((project.metadata.completedTasks / project.metadata.totalTasks) * 100)
+        : 0,
   }));
 
   return (
@@ -34,10 +44,10 @@ export const CompletionChart = ({ projects }: CompletionChartProps) => {
             }}
           />
           <Legend />
-          <Line 
-            type="monotone" 
-            dataKey="percentage" 
-            stroke="#3b82f6" 
+          <Line
+            type="monotone"
+            dataKey="percentage"
+            stroke="#3b82f6"
             strokeWidth={2}
             name="Tamamlanma %"
           />
@@ -46,4 +56,3 @@ export const CompletionChart = ({ projects }: CompletionChartProps) => {
     </div>
   );
 };
-

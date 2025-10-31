@@ -1,7 +1,16 @@
 import { useAgileStore } from '../../stores/agileStore';
 import { useStore } from '../../stores/useStore';
 import { calculateVelocity } from '../../utils/agile';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from 'recharts';
 
 interface VelocityChartProps {
   projectId: string;
@@ -40,4 +49,3 @@ export const VelocityChart = ({ projectId }: VelocityChartProps) => {
     </div>
   );
 };
-

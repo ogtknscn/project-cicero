@@ -9,7 +9,7 @@ export const calculateSprintMetrics = (
   getStoryPoints: (taskId: string) => number
 ): SprintMetrics => {
   const sprintTasks = tasks.filter((t) => sprint.taskIds.includes(t.id));
-  
+
   const totalPoints = sprintTasks.reduce((sum, t) => sum + getStoryPoints(t.id), 0);
   const completedPoints = sprintTasks
     .filter((t) => t.status === 'done')
@@ -64,7 +64,10 @@ export const calculateBurndown = (
     const completedByThisDay = tasks.filter((t) => {
       if (t.status !== 'done') return false;
       const completedDate = new Date(t.updatedAt);
-      return isBefore(completedDate, day) || format(completedDate, 'yyyy-MM-dd') === format(day, 'yyyy-MM-dd');
+      return (
+        isBefore(completedDate, day) ||
+        format(completedDate, 'yyyy-MM-dd') === format(day, 'yyyy-MM-dd')
+      );
     });
 
     const completedPoints = completedByThisDay.reduce((sum, t) => sum + getStoryPoints(t.id), 0);
@@ -134,4 +137,3 @@ export const getSprintStatusLabel = (status: Sprint['status']): string => {
       return status;
   }
 };
-
