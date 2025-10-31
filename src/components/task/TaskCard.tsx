@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { Task } from '../../types';
@@ -7,6 +7,7 @@ import { Trash2, Calendar, Link as LinkIcon } from 'lucide-react';
 import { Button } from '../common/Button';
 import { QuickStatusToggle } from './QuickStatusToggle';
 import { QuickActions } from './QuickActions';
+import { InlineEdit } from '../common/InlineEdit';
 
 interface TaskCardProps {
   task: Task;
@@ -16,7 +17,8 @@ interface TaskCardProps {
 
 export const TaskCard = React.memo(
   ({ task, onEdit, dragId }: TaskCardProps) => {
-    const { deleteTask, addTask } = useStore();
+    const { deleteTask, addTask, updateTask } = useStore();
+    const [isEditingTitle, setIsEditingTitle] = useState(false);
 
     const handleDuplicate = () => {
       const duplicatedTask: Task = {
@@ -56,19 +58,43 @@ export const TaskCard = React.memo(
       done: 'Tamamlandı',
     };
 
+    const handleTitleUpdate = (newTitle: string) => {
+      updateTask(task.id, { title: newTitle });
+    };
+
     const cardInner = (
       <div
         ref={setNodeRef}
         style={style}
-        onClick={() => onEdit(task)}
-        className={`bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4 hover:shadow-md transition-all cursor-pointer hover:scale-[1] ${
-          isDragging ? 'shadow-xl opacity-50' : ''
-        }`}
-        {...attributes}
-        {...listeners}
+        onClick={() => !isEditingTitle && onEdit(task)}
+        className={`bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4 hover:shadow-md transition-all ${
+          isEditingTitle ? '' : 'cursor-pointer hover:scale-[1]'
+        } ${isDragging ? 'shadow-xl opacity-50' : ''}`}
+        {...(isEditingTitle ? {} : attributes)}
+        {...(isEditingTitle ? {} : listeners)}
       >
         <div className="flex items-start justify-between mb-2">
-          <h4 className="font-semibold text-gray-900 dark:text-white flex-1">{task.title}</h4>
+          <div className="flex-1">
+            {isEditingTitle ? (
+              <InlineEdit
+                value={task.title}
+                onSave={handleTitleUpdate}
+                onCancel={() => setIsEditingTitle(false)}
+                placeholder="Görev başlığı"
+                className="font-semibold"
+              />
+            ) : (
+              <h4
+                className="font-semibold text-gray-900 dark:text-white cursor-pointer hover:text-primary-600 dark:hover:text-primary-400"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setIsEditingTitle(true);
+                }}
+              >
+                {task.title}
+              </h4>
+            )}
+          </div>
           <div className="flex items-center gap-1">
             <QuickStatusToggle task={task} />
             <Button

@@ -160,7 +160,11 @@ export const MainContent = ({ onNewTask, onEditTask }: MainContentProps) => {
   }
 
   return (
-    <main className="flex-1 overflow-y-auto bg-gray-50 dark:bg-gray-900">
+    <main
+      className="flex-1 overflow-y-auto bg-neutral-50 dark:bg-neutral-900"
+      role="main"
+      aria-label="Ana içerik"
+    >
       <div className="p-6">
         <div className="flex items-center justify-between mb-6">
           <div>

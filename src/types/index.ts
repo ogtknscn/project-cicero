@@ -11,6 +11,7 @@ export interface Task {
   tags: string[];
   assignee?: string;
   checklist?: ChecklistItem[];
+  comments?: string[]; // Comment IDs
   // Task Dependencies - Bağımlılıklar
   dependsOn?: string[]; // Bu görevin bağımlı olduğu görevlerin ID'leri
   blockedBy?: string[]; // Bu görevi bloke eden görevlerin ID'leri

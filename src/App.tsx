@@ -6,6 +6,7 @@ import { MainContent } from './components/layout/MainContent';
 import { ProjectModal } from './components/project/ProjectModal';
 import { TaskModal } from './components/task/TaskModal';
 import { CommandPalette } from './components/common/CommandPalette';
+import { KeyboardShortcutsHelp } from './components/common/KeyboardShortcutsHelp';
 import { ToastContainer } from './components/common/Toast';
 import { useStore } from './stores/useStore';
 import { useThemeStore } from './stores/themeStore';
@@ -17,6 +18,7 @@ function App() {
   const [isProjectModalOpen, setIsProjectModalOpen] = useState(false);
   const [isTaskModalOpen, setIsTaskModalOpen] = useState(false);
   const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
+  const [isShortcutsHelpOpen, setIsShortcutsHelpOpen] = useState(false);
   const [editingTaskId, setEditingTaskId] = useState<string | undefined>();
 
   // Dark mode
@@ -67,23 +69,42 @@ function App() {
         handleNewProject();
       }
 
+      // ?: Keyboard shortcuts help
+      if (e.key === '?' && !e.shiftKey) {
+        e.preventDefault();
+        setIsShortcutsHelpOpen(true);
+      }
+
       // ESC: Close modals
-      if (e.key === 'Escape' && (isProjectModalOpen || isTaskModalOpen || isCommandPaletteOpen)) {
+      if (
+        e.key === 'Escape' &&
+        (isProjectModalOpen || isTaskModalOpen || isCommandPaletteOpen || isShortcutsHelpOpen)
+      ) {
         setIsProjectModalOpen(false);
         setIsTaskModalOpen(false);
         setIsCommandPaletteOpen(false);
+        setIsShortcutsHelpOpen(false);
         setEditingTaskId(undefined);
       }
     };
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [selectedProjectId, isProjectModalOpen, isTaskModalOpen, isCommandPaletteOpen]);
+  }, [
+    selectedProjectId,
+    isProjectModalOpen,
+    isTaskModalOpen,
+    isCommandPaletteOpen,
+    isShortcutsHelpOpen,
+  ]);
 
   return (
     <ErrorBoundary>
-      <div className="flex flex-col h-screen">
-        <Header onNewProject={handleNewProject} />
+      <div className="flex flex-col h-screen bg-neutral-50 dark:bg-neutral-900">
+        <Header
+          onNewProject={handleNewProject}
+          onNewTask={selectedProjectId ? handleNewTask : undefined}
+        />
         <div className="flex flex-1 overflow-hidden">
           <Sidebar />
           <MainContent onNewTask={handleNewTask} onEditTask={handleEditTask} />
@@ -108,6 +129,11 @@ function App() {
           onClose={() => setIsCommandPaletteOpen(false)}
           onNewProject={handleNewProject}
           onNewTask={handleNewTask}
+        />
+
+        <KeyboardShortcutsHelp
+          isOpen={isShortcutsHelpOpen}
+          onClose={() => setIsShortcutsHelpOpen(false)}
         />
 
         <ToastContainer />

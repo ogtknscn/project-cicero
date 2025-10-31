@@ -10,6 +10,7 @@ import { TaskDependencies } from './TaskDependencies';
 import { TagSelector } from './TagSelector';
 import { CustomFieldsEditor } from './CustomFieldsEditor';
 import { TimeTracker } from '../time/TimeTracker';
+import { TaskComments } from './TaskComments';
 import { taskSchema } from '../../validation/schemas';
 
 interface TaskModalProps {
@@ -222,6 +223,22 @@ export const TaskModal = ({ isOpen, onClose, taskId, projectId }: TaskModalProps
               Zaman Takibi
             </h3>
             <TimeTracker taskId={task.id} />
+          </div>
+        )}
+
+        {/* Comments */}
+        {task && (
+          <div className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+            <TaskComments
+              taskId={task.id}
+              currentUserId="user_1"
+              currentUserName="Sen"
+              users={[
+                { id: 'user_1', name: 'Sen' },
+                { id: 'user_2', name: 'Ekip Üyesi 1' },
+                { id: 'user_3', name: 'Ekip Üyesi 2' },
+              ]}
+            />
           </div>
         )}
 

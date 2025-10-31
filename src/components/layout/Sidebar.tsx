@@ -25,8 +25,9 @@ export const Sidebar = () => {
       {/* Mobile menu button */}
       <button
         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-        className="md:hidden fixed top-4 left-4 z-50 p-2 bg-primary-600 text-white rounded-lg shadow-lg hover:bg-primary-700 transition-colors"
+        className="md:hidden fixed top-4 left-4 z-50 p-2 min-w-touch min-h-touch flex items-center justify-center bg-primary-600 text-white rounded-lg shadow-lg hover:bg-primary-700 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
         aria-label="Menüyü aç/kapat"
+        aria-expanded={isMobileMenuOpen}
       >
         {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
       </button>
@@ -44,10 +45,12 @@ export const Sidebar = () => {
       <aside
         className={`
           fixed md:static inset-y-0 left-0 z-40
-          bg-gray-50 dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 
+          bg-neutral-50 dark:bg-neutral-800 border-r border-neutral-200 dark:border-neutral-700 
           w-80 flex flex-col transform transition-transform duration-300 ease-in-out
           ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
         `}
+        role="navigation"
+        aria-label="Projeler menüsü"
       >
         <div className="p-4">
           <div className="flex items-center gap-2 mb-4">
