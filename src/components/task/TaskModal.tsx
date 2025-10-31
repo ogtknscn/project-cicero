@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Task } from '../../types';
 import { useStore, generateId } from '../../stores/useStore';
+import { useToastStore } from '../../stores/toastStore';
 import { Modal } from '../common/Modal';
 import { Input } from '../common/Input';
 import { Textarea } from '../common/Textarea';
@@ -9,6 +10,8 @@ import { TaskDependencies } from './TaskDependencies';
 import { TagSelector } from './TagSelector';
 import { CustomFieldsEditor } from './CustomFieldsEditor';
 import { TimeTracker } from '../time/TimeTracker';
+import { taskSchema } from '../../validation/schemas';
+import { handleError } from '../../utils/error';
 
 interface TaskModalProps {
   isOpen: boolean;
@@ -21,7 +24,7 @@ export const TaskModal = ({ isOpen, onClose, taskId, projectId }: TaskModalProps
   const { projects, addTask, updateTask } = useStore();
   const project = projects.find((p) => p.id === projectId);
   const task = project?.tasks.find((t) => t.id === taskId);
-  
+
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [status, setStatus] = useState<'todo' | 'in-progress' | 'done'>('todo');
@@ -29,8 +32,10 @@ export const TaskModal = ({ isOpen, onClose, taskId, projectId }: TaskModalProps
   const [dueDate, setDueDate] = useState('');
   const [dependsOn, setDependsOn] = useState<string[]>([]);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
-  const [customFieldValues, setCustomFieldValues] = useState<Record<string, string | number | boolean>>({});
-  
+  const [customFieldValues, setCustomFieldValues] = useState<
+    Record<string, string | number | boolean>
+  >({});
+
   useEffect(() => {
     if (task) {
       setTitle(task.title);
@@ -52,12 +57,35 @@ export const TaskModal = ({ isOpen, onClose, taskId, projectId }: TaskModalProps
       setCustomFieldValues({});
     }
   }, [task, isOpen]);
-  
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
-    if (!title.trim()) return;
-    
+    const { addToast } = useToastStore.getState();
+
+    // Validate form data
+    const formData = {
+      title: title.trim(),
+      description: description.trim(),
+      status,
+      priority,
+      dueDate: dueDate ? new Date(dueDate) : undefined,
+      tags: selectedTags,
+      dependsOn: dependsOn.length > 0 ? dependsOn : undefined,
+      customFields: customFieldValues,
+    };
+
+    const validation = taskSchema.safeParse(formData);
+
+    if (!validation.success) {
+      // Show first validation error
+      const firstError = validation.error.errors[0];
+      addToast({
+        message: firstError.message,
+        type: 'error',
+      });
+      return;
+    }
+
     if (task) {
       updateTask(task.id, {
         title: title.trim(),
@@ -86,16 +114,12 @@ export const TaskModal = ({ isOpen, onClose, taskId, projectId }: TaskModalProps
       };
       addTask(newTask);
     }
-    
+
     onClose();
   };
-  
+
   return (
-    <Modal
-      isOpen={isOpen}
-      onClose={onClose}
-      title={task ? 'Görevi Düzenle' : 'Yeni Görev'}
-    >
+    <Modal isOpen={isOpen} onClose={onClose} title={task ? 'Görevi Düzenle' : 'Yeni Görev'}>
       <form onSubmit={handleSubmit} className="space-y-4">
         <Input
           label="Görev Başlığı"
@@ -104,7 +128,7 @@ export const TaskModal = ({ isOpen, onClose, taskId, projectId }: TaskModalProps
           onChange={(e) => setTitle(e.target.value)}
           required
         />
-        
+
         <Textarea
           label="Açıklama"
           placeholder="Görev detayları..."
@@ -112,12 +136,10 @@ export const TaskModal = ({ isOpen, onClose, taskId, projectId }: TaskModalProps
           onChange={(e) => setDescription(e.target.value)}
           rows={3}
         />
-        
+
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Durum
-            </label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Durum</label>
             <select
               value={status}
               onChange={(e) => setStatus(e.target.value as any)}
@@ -128,11 +150,9 @@ export const TaskModal = ({ isOpen, onClose, taskId, projectId }: TaskModalProps
               <option value="done">Tamamlandı</option>
             </select>
           </div>
-          
+
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Öncelik
-            </label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Öncelik</label>
             <select
               value={priority}
               onChange={(e) => setPriority(e.target.value as any)}
@@ -144,14 +164,14 @@ export const TaskModal = ({ isOpen, onClose, taskId, projectId }: TaskModalProps
             </select>
           </div>
         </div>
-        
+
         <Input
           type="date"
           label="Bitiş Tarihi"
           value={dueDate}
           onChange={(e) => setDueDate(e.target.value)}
         />
-        
+
         {/* Etiket seçimi */}
         {project && (
           <TagSelector
@@ -166,7 +186,7 @@ export const TaskModal = ({ isOpen, onClose, taskId, projectId }: TaskModalProps
             onUpdate={setSelectedTags}
           />
         )}
-        
+
         {/* Custom Fields */}
         {project && project.customFields && project.customFields.length > 0 && (
           <CustomFieldsEditor
@@ -175,16 +195,27 @@ export const TaskModal = ({ isOpen, onClose, taskId, projectId }: TaskModalProps
             onUpdate={setCustomFieldValues}
           />
         )}
-        
+
         {/* Bağımlılık yönetimi */}
         {project && (
           <TaskDependencies
-            task={task || { id: '', title: '', projectId, status: 'todo', priority: 'medium', createdAt: new Date(), updatedAt: new Date(), tags: [] }}
+            task={
+              task || {
+                id: '',
+                title: '',
+                projectId,
+                status: 'todo',
+                priority: 'medium',
+                createdAt: new Date(),
+                updatedAt: new Date(),
+                tags: [],
+              }
+            }
             allTasks={project.tasks}
             onUpdateDependencies={setDependsOn}
           />
         )}
-        
+
         {/* Time Tracking */}
         {task && (
           <div className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
@@ -194,17 +225,14 @@ export const TaskModal = ({ isOpen, onClose, taskId, projectId }: TaskModalProps
             <TimeTracker taskId={task.id} />
           </div>
         )}
-        
+
         <div className="flex justify-end gap-2 pt-4">
           <Button type="button" variant="secondary" onClick={onClose}>
             İptal
           </Button>
-          <Button type="submit">
-            {task ? 'Güncelle' : 'Oluştur'}
-          </Button>
+          <Button type="submit">{task ? 'Güncelle' : 'Oluştur'}</Button>
         </div>
       </form>
     </Modal>
   );
 };
-

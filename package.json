@@ -18,7 +18,9 @@
     "@dnd-kit/sortable": "^10.0.0",
     "@dnd-kit/utilities": "^3.2.2",
     "@radix-ui/react-context-menu": "^2.2.16",
+    "@types/dompurify": "^3.0.5",
     "date-fns": "^3.0.0",
+    "dompurify": "^3.3.0",
     "flexsearch": "^0.8.212",
     "jspdf": "^3.0.3",
     "lucide-react": "^0.303.0",
@@ -26,6 +28,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "recharts": "^3.0.0",
+    "zod": "^4.1.12",
     "zustand": "^4.4.7"
   },
   "devDependencies": {
