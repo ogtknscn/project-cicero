@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useAgileStore } from '../../stores/agileStore';
 import { useStore } from '../../stores/useStore';
 import { Button } from '../common/Button';
-import { Plus, Target, Zap } from 'lucide-react';
+import { Target, Zap } from 'lucide-react';
 import { SprintBoard } from './SprintBoard';
 import { EpicManager } from './EpicManager';
 import { VelocityChart } from './VelocityChart';

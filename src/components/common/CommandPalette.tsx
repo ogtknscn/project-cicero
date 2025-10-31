@@ -13,8 +13,6 @@ import {
   BarChart3,
   FileText,
   FilePlus,
-  Save,
-  Eye,
 } from 'lucide-react';
 import { useStore } from '../../stores/useStore';
 import { useViewStore } from '../../stores/viewStore';
@@ -46,10 +44,9 @@ export const CommandPalette = ({
 }: CommandPaletteProps) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const { exportData, importData, projects, selectedProjectId } = useStore();
-  const { setView, currentView } = useViewStore();
-  const { theme, setTheme } = useThemeStore();
-  const { addToast } = useToastStore();
+  const { exportData, importData, projects } = useStore();
+  const { setView } = useViewStore();
+  const { setTheme } = useThemeStore();
 
   const handleExportJSON = () => {
     const data = exportData();

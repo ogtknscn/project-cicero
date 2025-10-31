@@ -1,13 +1,8 @@
 import { useState } from 'react';
 import { useAgileStore } from '../../stores/agileStore';
-import { useStore } from '../../stores/useStore';
 import { Button } from '../common/Button';
-import { Plus, Play } from 'lucide-react';
-import {
-  getSprintStatusLabel,
-  getSprintStatusColor,
-  calculateSprintMetrics,
-} from '../../utils/agile';
+import { Plus } from 'lucide-react';
+import { getSprintStatusLabel, getSprintStatusColor } from '../../utils/agile';
 
 interface SprintBoardProps {
   projectId: string;
@@ -15,8 +10,6 @@ interface SprintBoardProps {
 
 export const SprintBoard = ({ projectId }: SprintBoardProps) => {
   const { getSprintsByProject, addSprint } = useAgileStore();
-  const { projects } = useStore();
-  const project = projects.find((p) => p.id === projectId);
   const sprints = getSprintsByProject(projectId);
 
   const [newSprintName, setNewSprintName] = useState('');

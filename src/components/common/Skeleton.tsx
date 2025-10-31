@@ -1,5 +1,3 @@
-import { LucideIcon } from 'lucide-react';
-
 interface SkeletonProps {
   className?: string;
 }

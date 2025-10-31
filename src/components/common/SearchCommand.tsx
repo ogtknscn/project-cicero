@@ -10,13 +10,19 @@ interface SearchCommandProps {
   onSelectTask: (task: Task) => void;
 }
 
+// Extended task type with project info
+type TaskWithProject = Task & {
+  projectName: string;
+  projectColor?: string;
+};
+
 export const SearchCommand = ({ isOpen, onClose, onSelectTask }: SearchCommandProps) => {
   const { projects } = useStore();
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   // Get all tasks from all projects
-  const allTasks = useMemo(
+  const allTasks: TaskWithProject[] = useMemo(
     () =>
       projects.flatMap((project) =>
         project.tasks.map((task) => ({
@@ -36,9 +42,9 @@ export const SearchCommand = ({ isOpen, onClose, onSelectTask }: SearchCommandPr
   }, [allTasks]);
 
   // Filter tasks using FlexSearch
-  const filteredTasks = useMemo(() => {
+  const filteredTasks: TaskWithProject[] = useMemo(() => {
     if (!searchTerm.trim()) return allTasks;
-    return searchTasks(searchTerm, allTasks, taskIndex);
+    return searchTasks(searchTerm, allTasks, taskIndex) as TaskWithProject[];
   }, [searchTerm, allTasks, taskIndex]);
 
   // Keyboard navigation

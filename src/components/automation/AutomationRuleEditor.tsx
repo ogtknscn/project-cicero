@@ -5,7 +5,7 @@ import { Modal } from '../common/Modal';
 import { Input } from '../common/Input';
 import { Button } from '../common/Button';
 import { Plus, X } from 'lucide-react';
-import { TRIGGER_LABELS, ACTION_LABELS, TriggerType, ActionType } from '../../types/automation';
+import { TRIGGER_LABELS, ACTION_LABELS, TriggerType } from '../../types/automation';
 
 interface AutomationRuleEditorProps {
   isOpen: boolean;

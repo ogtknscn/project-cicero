@@ -1,21 +1,22 @@
 import FlexSearch from 'flexsearch';
 import { Task, Project } from '../types';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type FlexSearchIndex = any;
+
 // Create search indexes
-export const createTaskIndex = () => {
+export const createTaskIndex = (): FlexSearchIndex => {
   return new FlexSearch.Index({
     tokenize: 'forward',
-    threshold: 0,
     resolution: 9,
     depth: 3,
     cache: 100,
   });
 };
 
-export const createProjectIndex = () => {
+export const createProjectIndex = (): FlexSearchIndex => {
   return new FlexSearch.Index({
     tokenize: 'forward',
-    threshold: 0,
     resolution: 9,
     depth: 3,
     cache: 100,
@@ -23,7 +24,7 @@ export const createProjectIndex = () => {
 };
 
 // Index tasks
-export const indexTasks = (tasks: Task[], index: FlexSearch.Index) => {
+export const indexTasks = (tasks: Task[], index: FlexSearchIndex) => {
   tasks.forEach((task) => {
     const searchText = [
       task.title,
@@ -38,7 +39,7 @@ export const indexTasks = (tasks: Task[], index: FlexSearch.Index) => {
 };
 
 // Index projects
-export const indexProjects = (projects: Project[], index: FlexSearch.Index) => {
+export const indexProjects = (projects: Project[], index: FlexSearchIndex) => {
   projects.forEach((project) => {
     const searchText = [project.name, project.description || ''].join(' ');
 
@@ -47,7 +48,7 @@ export const indexProjects = (projects: Project[], index: FlexSearch.Index) => {
 };
 
 // Search tasks
-export const searchTasks = (query: string, tasks: Task[], index: FlexSearch.Index): Task[] => {
+export const searchTasks = (query: string, tasks: Task[], index: FlexSearchIndex): Task[] => {
   if (!query.trim()) return tasks;
 
   const results = index.search(query);
@@ -58,7 +59,7 @@ export const searchTasks = (query: string, tasks: Task[], index: FlexSearch.Inde
 export const searchProjects = (
   query: string,
   projects: Project[],
-  index: FlexSearch.Index
+  index: FlexSearchIndex
 ): Project[] => {
   if (!query.trim()) return projects;
 

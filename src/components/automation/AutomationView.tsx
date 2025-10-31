@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useAutomationStore } from '../../stores/automationStore';
 import { Button } from '../common/Button';
-import { Plus, Zap, AlertCircle, Play, Pause } from 'lucide-react';
+import { Plus, Zap, AlertCircle, Play } from 'lucide-react';
 import { AutomationRuleEditor } from './AutomationRuleEditor';
 import { AutomationRuleList } from './AutomationRuleList';
 import { AutomationLogs } from './AutomationLogs';

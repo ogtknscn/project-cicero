@@ -15,10 +15,10 @@ export const taskSchema = z.object({
     .optional()
     .or(z.literal('')),
   status: z.enum(['todo', 'in-progress', 'done'], {
-    errorMap: () => ({ message: 'Geçersiz durum' }),
+    message: 'Geçersiz durum',
   }),
   priority: z.enum(['low', 'medium', 'high'], {
-    errorMap: () => ({ message: 'Geçersiz öncelik' }),
+    message: 'Geçersiz öncelik',
   }),
   dueDate: z.date().optional().nullable(),
   tags: z
@@ -54,7 +54,7 @@ export const projectSchema = z.object({
     .regex(/^#[0-9A-Fa-f]{6}$/, 'Geçersiz renk formatı')
     .optional(),
   status: z.enum(['active', 'archived'], {
-    errorMap: () => ({ message: 'Geçersiz durum' }),
+    message: 'Geçersiz durum',
   }),
 });
 
@@ -211,6 +211,6 @@ export function validateData<T>(
 /**
  * Safe parse wrapper for better error handling
  */
-export function safeValidate<T>(schema: z.Schema<T>, data: unknown): z.SafeParseReturnType<T, T> {
+export function safeValidate<T>(schema: z.ZodType<T>, data: unknown) {
   return schema.safeParse(data);
 }

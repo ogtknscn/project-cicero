@@ -8,18 +8,15 @@ import { TaskModal } from './components/task/TaskModal';
 import { CommandPalette } from './components/common/CommandPalette';
 import { ToastContainer } from './components/common/Toast';
 import { useStore } from './stores/useStore';
-import { useViewStore } from './stores/viewStore';
 import { useThemeStore } from './stores/themeStore';
-import { Task } from './types';
 
 function App() {
-  const { selectedProjectId, selectProject, projects } = useStore();
+  const { selectedProjectId, selectProject } = useStore();
   const { theme } = useThemeStore();
   const [isProjectModalOpen, setIsProjectModalOpen] = useState(false);
   const [isTaskModalOpen, setIsTaskModalOpen] = useState(false);
   const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
   const [editingTaskId, setEditingTaskId] = useState<string | undefined>();
-  const { setView } = useViewStore();
 
   // Dark mode
   useEffect(() => {
@@ -85,16 +82,6 @@ function App() {
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [selectedProjectId, isProjectModalOpen, isTaskModalOpen, isCommandPaletteOpen]);
-
-  const handleSearchSelectTask = (task: Task) => {
-    // Find the project
-    const project = projects.find((p) => p.tasks.some((t) => t.id === task.id));
-    if (project) {
-      selectProject(project.id);
-      setEditingTaskId(task.id);
-      setIsTaskModalOpen(true);
-    }
-  };
 
   return (
     <ErrorBoundary>

@@ -1,4 +1,3 @@
-import React from 'react';
 import { useStore } from '../../stores/useStore';
 import { useTimeStore } from '../../stores/timeStore';
 import { MetricCard } from './MetricCard';

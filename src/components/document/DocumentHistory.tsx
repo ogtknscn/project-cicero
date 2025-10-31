@@ -12,22 +12,22 @@ interface DocumentHistoryProps {
 
 export const DocumentHistory = ({ documentId, isOpen, onClose }: DocumentHistoryProps) => {
   const { getVersions, documents } = useDocumentStore();
-  const document = documents.find((d) => d.id === documentId);
+  const doc = documents.find((d) => d.id === documentId);
   const versions = getVersions(documentId);
 
-  if (!document) {
+  if (!doc) {
     return null;
   }
 
   const handleDownloadVersion = (version: any) => {
-    const link = document.createElement('a');
+    const link = window.document.createElement('a');
     link.href = version.content;
-    link.download = `${document.name.replace(/\.[^/.]+$/, '')}_v${version.version}${document.name.match(/\.[^/.]+$/)?.[0] || ''}`;
+    link.download = `${doc.name.replace(/\.[^/.]+$/, '')}_v${version.version}${doc.name.match(/\.[^/.]+$/)?.[0] || ''}`;
     link.click();
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} title={`Geçmiş - ${document.name}`}>
+    <Modal isOpen={isOpen} onClose={onClose} title={`Geçmiş - ${doc.name}`}>
       <div className="space-y-4">
         {versions.length === 0 ? (
           <p className="text-center text-gray-500 dark:text-gray-400 py-8">
@@ -46,7 +46,7 @@ export const DocumentHistory = ({ documentId, isOpen, onClose }: DocumentHistory
                       <span className="font-semibold text-gray-900 dark:text-white">
                         Versiyon {version.version}
                       </span>
-                      {version.version === document.version && (
+                      {version.version === doc.version && (
                         <span className="px-2 py-0.5 text-xs bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 rounded">
                           Güncel
                         </span>
