@@ -1,9 +1,15 @@
 /**
  * Accessibility utilities for better screen reader support and keyboard navigation
+ * @module utils/accessibility
  */
 
 /**
- * Trap focus within a modal/dialog element
+ * Trap focus within a modal/dialog element to prevent keyboard navigation outside
+ * @param {HTMLElement} element - The container element to trap focus within
+ * @returns {Function} Cleanup function to remove event listeners
+ * @example
+ * const cleanup = trapFocus(modalElement);
+ * // Later: cleanup();
  */
 export const trapFocus = (element: HTMLElement) => {
   const focusableElements = element.querySelectorAll<HTMLElement>(

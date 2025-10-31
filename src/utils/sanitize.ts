@@ -1,7 +1,18 @@
 import DOMPurify from 'dompurify';
 
 /**
- * Sanitize HTML content to prevent XSS attacks
+ * Sanitization utilities for preventing XSS attacks
+ * @module utils/sanitize
+ */
+
+/**
+ * Sanitize HTML content to prevent XSS attacks using DOMPurify
+ * @param {string} dirty - Untrusted HTML string
+ * @param {string[]} allowedTags - Optional array of allowed HTML tags
+ * @returns {string} Sanitized HTML string
+ * @example
+ * const clean = sanitizeHtml('<script>alert("xss")</script><p>Safe content</p>', ['p']);
+ * // Returns: '<p>Safe content</p>'
  */
 export const sanitizeHtml = (dirty: string, allowedTags?: string[]): string => {
   return DOMPurify.sanitize(dirty, {
