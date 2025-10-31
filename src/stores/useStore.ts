@@ -6,18 +6,18 @@ import { useToastStore } from './toastStore';
 interface AppStore {
   projects: Project[];
   selectedProjectId: string | null;
-  
+
   // Project actions
   addProject: (project: Project) => void;
   updateProject: (id: string, updates: Partial<Project>) => void;
   deleteProject: (id: string) => void;
   selectProject: (id: string | null) => void;
-  
+
   // Task actions
   addTask: (task: Task) => void;
   updateTask: (id: string, updates: Partial<Task>) => void;
   deleteTask: (id: string) => void;
-  
+
   // Utility actions
   exportData: () => string;
   importData: (data: string) => void;
@@ -99,7 +99,7 @@ export const useStore = create<AppStore>()(
           const updatedTasks = p.tasks.map((t) =>
             t.id === id ? { ...t, ...updates, updatedAt: new Date() } : t
           );
-          
+
           if (p.tasks.some((t) => t.id === id)) {
             return {
               ...p,
@@ -121,7 +121,7 @@ export const useStore = create<AppStore>()(
         const { projects } = get();
         const updatedProjects = projects.map((p) => {
           const updatedTasks = p.tasks.filter((t) => t.id !== id);
-          
+
           if (p.tasks.some((t) => t.id === id)) {
             return {
               ...p,
@@ -148,8 +148,12 @@ export const useStore = create<AppStore>()(
         try {
           const data = JSON.parse(jsonString);
           set({ projects: data });
+          useToastStore.getState().addToast({ message: 'Veri içe aktarıldı', type: 'success' });
         } catch (error) {
-          console.error('Import failed:', error);
+          if (import.meta.env.DEV) {
+            console.error('Import failed:', error);
+          }
+          useToastStore.getState().addToast({ message: 'İçe aktarma başarısız', type: 'error' });
         }
       },
 
@@ -164,4 +168,3 @@ export const useStore = create<AppStore>()(
 );
 
 export { generateId };
-

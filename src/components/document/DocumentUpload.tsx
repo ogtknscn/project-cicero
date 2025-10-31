@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useDocumentStore } from '../../stores/documentStore';
+import { useToastStore } from '../../stores/toastStore';
 import { Modal } from '../common/Modal';
 import { Input } from '../common/Input';
 import { Button } from '../common/Button';
@@ -24,7 +25,10 @@ export const DocumentUpload = ({ isOpen, onClose, projectId, taskId }: DocumentU
     if (selectedFile) {
       // Check file size (max 10MB for demo)
       if (selectedFile.size > 10 * 1024 * 1024) {
-        alert('Dosya boyutu 10MB\'den küçük olmalıdır');
+        useToastStore.getState().addToast({
+          message: "Dosya boyutu 10MB'den küçük olmalıdır",
+          type: 'error',
+        });
         return;
       }
       setFile(selectedFile);
@@ -60,8 +64,13 @@ export const DocumentUpload = ({ isOpen, onClose, projectId, taskId }: DocumentU
       };
       reader.readAsDataURL(file);
     } catch (error) {
-      console.error('Error uploading file:', error);
-      alert('Dosya yüklenirken hata oluştu');
+      if (import.meta.env.DEV) {
+        console.error('Error uploading file:', error);
+      }
+      useToastStore.getState().addToast({
+        message: 'Dosya yüklenirken hata oluştu',
+        type: 'error',
+      });
     }
   };
 
@@ -88,12 +97,7 @@ export const DocumentUpload = ({ isOpen, onClose, projectId, taskId }: DocumentU
               {file ? file.name : 'Dosya Seç'}
             </label>
             {file && (
-              <Button
-                type="button"
-                variant="ghost"
-                size="sm"
-                onClick={() => setFile(null)}
-              >
+              <Button type="button" variant="ghost" size="sm" onClick={() => setFile(null)}>
                 <X size={16} />
               </Button>
             )}
@@ -145,4 +149,3 @@ export const DocumentUpload = ({ isOpen, onClose, projectId, taskId }: DocumentU
     </Modal>
   );
 };
-

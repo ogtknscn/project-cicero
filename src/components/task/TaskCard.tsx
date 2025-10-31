@@ -15,7 +15,7 @@ interface TaskCardProps {
 
 export const TaskCard = ({ task, onEdit, dragId }: TaskCardProps) => {
   const { deleteTask, addTask } = useStore();
-  
+
   const handleDuplicate = () => {
     const duplicatedTask: Task = {
       ...task,
@@ -26,39 +26,34 @@ export const TaskCard = ({ task, onEdit, dragId }: TaskCardProps) => {
     };
     addTask(duplicatedTask);
   };
-  
+
   const handleArchive = () => {
-    // Future: Archive functionality
-    console.log('Archive:', task.id);
+    // TODO: Implement archive functionality
+    // For now, this is a placeholder
   };
-  
-  const {
-    attributes,
-    listeners,
-    setNodeRef,
-    transform,
-    transition,
-    isDragging,
-  } = useSortable({ id: dragId || task.id });
-  
+
+  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
+    id: dragId || task.id,
+  });
+
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
     opacity: isDragging ? 0.5 : 1,
   };
-  
+
   const priorityColors = {
     low: 'bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200',
     medium: 'bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200',
     high: 'bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200',
   };
-  
+
   const statusLabels = {
-    'todo': 'Yapılacak',
+    todo: 'Yapılacak',
     'in-progress': 'Devam Ediyor',
-    'done': 'Tamamlandı',
+    done: 'Tamamlandı',
   };
-  
+
   const cardInner = (
     <div
       ref={setNodeRef}
@@ -88,11 +83,13 @@ export const TaskCard = ({ task, onEdit, dragId }: TaskCardProps) => {
           </Button>
         </div>
       </div>
-      
+
       {task.description && (
-        <p className="text-sm text-gray-600 dark:text-gray-400 mb-2 line-clamp-2">{task.description}</p>
+        <p className="text-sm text-gray-600 dark:text-gray-400 mb-2 line-clamp-2">
+          {task.description}
+        </p>
       )}
-      
+
       {/* Tags */}
       {task.tags && task.tags.length > 0 && (
         <div className="flex flex-wrap gap-1 mb-2">
@@ -106,27 +103,30 @@ export const TaskCard = ({ task, onEdit, dragId }: TaskCardProps) => {
           ))}
         </div>
       )}
-      
+
       <div className="flex items-center justify-between gap-2 flex-wrap">
         <div className="flex items-center gap-2">
-          <span className={`px-2 py-1 rounded text-xs font-medium ${
-            priorityColors[task.priority]
-          }`}>
+          <span
+            className={`px-2 py-1 rounded text-xs font-medium ${priorityColors[task.priority]}`}
+          >
             {task.priority === 'low' ? 'Düşük' : task.priority === 'medium' ? 'Orta' : 'Yüksek'}
           </span>
           <span className="px-2 py-1 rounded text-xs font-medium bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300">
             {statusLabels[task.status]}
           </span>
-          
+
           {/* Bağımlılık göstergesi */}
           {task.dependsOn && task.dependsOn.length > 0 && (
-            <div className="flex items-center gap-1 text-xs text-gray-500" title={`Bağımlı: ${task.dependsOn.length} görev`}>
+            <div
+              className="flex items-center gap-1 text-xs text-gray-500"
+              title={`Bağımlı: ${task.dependsOn.length} görev`}
+            >
               <LinkIcon size={12} />
               <span>{task.dependsOn.length}</span>
             </div>
           )}
         </div>
-        
+
         {task.dueDate && (
           <div className="flex items-center gap-1 text-xs text-gray-500 dark:text-gray-400">
             <Calendar size={14} />
@@ -136,7 +136,7 @@ export const TaskCard = ({ task, onEdit, dragId }: TaskCardProps) => {
       </div>
     </div>
   );
-  
+
   return (
     <QuickActions
       task={task}
@@ -153,4 +153,3 @@ export const TaskCard = ({ task, onEdit, dragId }: TaskCardProps) => {
     </QuickActions>
   );
 };
-

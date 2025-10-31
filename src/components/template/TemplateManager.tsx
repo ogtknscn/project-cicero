@@ -1,20 +1,26 @@
 import { useState } from 'react';
 import { useTemplateStore } from '../../stores/templateStore';
 import { useStore, generateId } from '../../stores/useStore';
+import { useToastStore } from '../../stores/toastStore';
 import { Button } from '../common/Button';
 import { Modal } from '../common/Modal';
 import { FilePlus, Trash2, Copy } from 'lucide-react';
 import { Task, Project } from '../../types';
 
 export const TemplateManager = () => {
-  const { taskTemplates, projectTemplates, deleteTaskTemplate, deleteProjectTemplate } = useTemplateStore();
+  const { taskTemplates, projectTemplates, deleteTaskTemplate, deleteProjectTemplate } =
+    useTemplateStore();
   const { addTask, addProject, selectedProjectId } = useStore();
+  const { addToast } = useToastStore();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<'task' | 'project'>('task');
 
   const handleUseTaskTemplate = (templateId: string) => {
     if (!selectedProjectId) {
-      alert('Lütfen önce bir proje seçin');
+      addToast({
+        message: 'Lütfen önce bir proje seçin',
+        type: 'warning',
+      });
       return;
     }
 
@@ -38,13 +44,14 @@ export const TemplateManager = () => {
       const newProject: Project = {
         ...template.template,
         id: generateId(),
-        tasks: template.taskTemplates?.map((taskTemplate) => ({
-          ...taskTemplate,
-          id: generateId(),
-          projectId: generateId(), // Will be overwritten after project creation
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        })) || [],
+        tasks:
+          template.taskTemplates?.map((taskTemplate) => ({
+            ...taskTemplate,
+            id: generateId(),
+            projectId: generateId(), // Will be overwritten after project creation
+            createdAt: new Date(),
+            updatedAt: new Date(),
+          })) || [],
         createdAt: new Date(),
         updatedAt: new Date(),
         metadata: {
@@ -69,11 +76,7 @@ export const TemplateManager = () => {
         <span className="hidden sm:inline ml-2">Şablonlar</span>
       </Button>
 
-      <Modal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        title="Şablonlar"
-      >
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} title="Şablonlar">
         <div className="space-y-4">
           {/* Tabs */}
           <div className="flex gap-2 border-b border-gray-200 dark:border-gray-700">
@@ -113,9 +116,7 @@ export const TemplateManager = () => {
                     className="flex items-center justify-between p-3 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800"
                   >
                     <div className="flex-1">
-                      <h4 className="font-medium text-gray-900 dark:text-white">
-                        {template.name}
-                      </h4>
+                      <h4 className="font-medium text-gray-900 dark:text-white">{template.name}</h4>
                       {template.description && (
                         <p className="text-sm text-gray-500 dark:text-gray-400">
                           {template.description}
@@ -164,9 +165,7 @@ export const TemplateManager = () => {
                     className="flex items-center justify-between p-3 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800"
                   >
                     <div className="flex-1">
-                      <h4 className="font-medium text-gray-900 dark:text-white">
-                        {template.name}
-                      </h4>
+                      <h4 className="font-medium text-gray-900 dark:text-white">{template.name}</h4>
                       {template.description && (
                         <p className="text-sm text-gray-500 dark:text-gray-400">
                           {template.description}
@@ -208,4 +207,3 @@ export const TemplateManager = () => {
     </>
   );
 };
-

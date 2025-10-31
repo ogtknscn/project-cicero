@@ -1,6 +1,5 @@
 import { Task } from '../types';
 import {
-  AutomationRule,
   AutomationCondition,
   AutomationAction,
   TriggerType,
@@ -70,13 +69,14 @@ export const executeActions = async (
           executedActions.push('change_priority');
           break;
 
-        case 'add_tag':
+        case 'add_tag': {
           const currentTags = task.tags || [];
           if (!currentTags.includes(action.value)) {
             store.updateTask(task.id, { tags: [...currentTags, action.value] });
           }
           executedActions.push('add_tag');
           break;
+        }
 
         case 'remove_tag':
           if (task.tags && task.tags.includes(action.value)) {
@@ -93,7 +93,7 @@ export const executeActions = async (
           executedActions.push('send_notification');
           break;
 
-        case 'create_task':
+        case 'create_task': {
           // Create a related task
           const newTask: Partial<Task> = {
             title: action.value?.title || `Follow-up: ${task.title}`,
@@ -106,15 +106,21 @@ export const executeActions = async (
           store.addTask(newTask as Task);
           executedActions.push('create_task');
           break;
+        }
 
         default:
-          console.warn(`Unknown action type: ${action.type}`);
+          // Unknown action type - silently skip
+          if (import.meta.env.DEV) {
+            console.warn(`Unknown action type: ${action.type}`);
+          }
       }
     }
 
     return { success: true, executedActions };
   } catch (error) {
-    console.error('Automation execution error:', error);
+    if (import.meta.env.DEV) {
+      console.error('Automation execution error:', error);
+    }
     return {
       success: false,
       error: error instanceof Error ? error.message : 'Unknown error',
@@ -164,4 +170,3 @@ export const processAutomation = async (
     }
   }
 };
-
