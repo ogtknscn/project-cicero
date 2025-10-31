@@ -30,7 +30,7 @@ export const taskSchema = z.object({
     .optional()
     .or(z.literal('')),
   dependsOn: z.array(z.string()).optional(),
-  customFields: z.record(z.union([z.string(), z.number(), z.boolean()])).optional(),
+  customFields: z.record(z.string(), z.union([z.string(), z.number(), z.boolean()])).optional(),
 });
 
 export type TaskFormData = z.infer<typeof taskSchema>;
@@ -198,7 +198,7 @@ export function validateData<T>(
   } catch (error) {
     if (error instanceof z.ZodError) {
       const errors: Record<string, string> = {};
-      error.errors.forEach((err) => {
+      error.issues.forEach((err: z.ZodIssue) => {
         const path = err.path.join('.');
         errors[path] = err.message;
       });

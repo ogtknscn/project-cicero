@@ -32,9 +32,9 @@ export const checkConditions = (task: Task, conditions: AutomationCondition[]): 
         }
         return false;
       case 'greater_than':
-        return taskValue > condition.value;
+        return taskValue !== undefined && taskValue !== null && taskValue > condition.value;
       case 'less_than':
-        return taskValue < condition.value;
+        return taskValue !== undefined && taskValue !== null && taskValue < condition.value;
       default:
         return false;
     }
@@ -54,8 +54,9 @@ export const executeActions = async (
   try {
     for (const action of actions) {
       // Optional delay
-      if (action.delay && action.delay > 0) {
-        await new Promise((resolve) => setTimeout(resolve, action.delay * 60 * 1000));
+      const delay = action.delay;
+      if (delay && delay > 0) {
+        await new Promise((resolve) => setTimeout(resolve, delay * 60 * 1000));
       }
 
       switch (action.type) {

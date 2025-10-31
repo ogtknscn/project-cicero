@@ -9,9 +9,10 @@ import { CommandPalette } from './components/common/CommandPalette';
 import { ToastContainer } from './components/common/Toast';
 import { useStore } from './stores/useStore';
 import { useThemeStore } from './stores/themeStore';
+import { Task } from './types';
 
 function App() {
-  const { selectedProjectId, selectProject } = useStore();
+  const { selectedProjectId } = useStore();
   const { theme } = useThemeStore();
   const [isProjectModalOpen, setIsProjectModalOpen] = useState(false);
   const [isTaskModalOpen, setIsTaskModalOpen] = useState(false);
@@ -30,10 +31,6 @@ function App() {
       root.classList.remove('dark');
     }
   }, [theme]);
-
-  const handleProjectSelect = (id: string) => {
-    selectProject(id);
-  };
 
   const handleNewProject = () => {
     setIsProjectModalOpen(true);
@@ -88,7 +85,7 @@ function App() {
       <div className="flex flex-col h-screen">
         <Header onNewProject={handleNewProject} />
         <div className="flex flex-1 overflow-hidden">
-          <Sidebar onProjectSelect={handleProjectSelect} />
+          <Sidebar />
           <MainContent onNewTask={handleNewTask} onEditTask={handleEditTask} />
         </div>
 

@@ -15,6 +15,8 @@ const colorClasses = {
   gray: 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300',
 };
 
+import React from 'react';
+
 export const MetricCard = React.memo(({ title, value, subtitle, icon, color }: MetricCardProps) => {
   return (
     <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6">

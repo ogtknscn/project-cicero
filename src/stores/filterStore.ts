@@ -24,7 +24,7 @@ interface FilterStore {
 
 export const useFilterStore = create<FilterStore>()(
   persist(
-    (set, get) => ({
+    (set) => ({
       filterPresets: [],
       viewPresets: [],
       activeFilterPresetId: null,

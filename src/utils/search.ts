@@ -9,7 +9,6 @@ export const createTaskIndex = (): FlexSearchIndex => {
   return new FlexSearch.Index({
     tokenize: 'forward',
     resolution: 9,
-    depth: 3,
     cache: 100,
   });
 };
@@ -18,7 +17,6 @@ export const createProjectIndex = (): FlexSearchIndex => {
   return new FlexSearch.Index({
     tokenize: 'forward',
     resolution: 9,
-    depth: 3,
     cache: 100,
   });
 };

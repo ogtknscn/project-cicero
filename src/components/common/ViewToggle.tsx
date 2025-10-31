@@ -12,7 +12,6 @@ import {
   BookOpen,
 } from 'lucide-react';
 import { useViewStore, ViewType } from '../../stores/viewStore';
-import { Button } from './Button';
 
 export const ViewToggle = () => {
   const { currentView, setView } = useViewStore();

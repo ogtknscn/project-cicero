@@ -17,7 +17,6 @@ import {
 import { useStore } from '../../stores/useStore';
 import { useViewStore } from '../../stores/viewStore';
 import { useThemeStore } from '../../stores/themeStore';
-import { useToastStore } from '../../stores/toastStore';
 import { exportProjectsToCSV, exportAllProjectsToPDF } from '../../utils/export';
 
 interface Command {
@@ -340,7 +339,7 @@ export const CommandPalette = ({
                 <div className="px-4 py-1 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase">
                   {categoryLabels[category as keyof typeof categoryLabels]}
                 </div>
-                {cmds.map((cmd, index) => {
+                {cmds.map((cmd) => {
                   const globalIndex = filteredCommands.indexOf(cmd);
                   const Icon = cmd.icon;
                   return (

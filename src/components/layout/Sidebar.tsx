@@ -1,13 +1,9 @@
-import { Home, Archive, Menu, X } from 'lucide-react';
+import { Home, Menu, X } from 'lucide-react';
 import { useStore } from '../../stores/useStore';
 import { ProjectCard } from '../project/ProjectCard';
 import { useState, useEffect } from 'react';
 
-interface SidebarProps {
-  onProjectSelect: (id: string) => void;
-}
-
-export const Sidebar = ({ onProjectSelect }: SidebarProps) => {
+export const Sidebar = () => {
   const { projects } = useStore();
   const activeProjects = projects.filter((p) => p.status === 'active');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);

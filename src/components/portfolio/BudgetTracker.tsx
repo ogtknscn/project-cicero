@@ -10,7 +10,7 @@ interface BudgetTrackerProps {
 }
 
 export const BudgetTracker = ({ portfolioProjects }: BudgetTrackerProps) => {
-  const { budgets, setBudget, updateSpent, getBudget } = usePortfolioStore();
+  const { setBudget, updateSpent, getBudget } = usePortfolioStore();
   const [editingProjectId, setEditingProjectId] = useState<string | null>(null);
   const [allocated, setAllocated] = useState('');
   const [spent, setSpent] = useState('');

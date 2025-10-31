@@ -1,6 +1,6 @@
 import React from 'react';
 import * as ContextMenu from '@radix-ui/react-context-menu';
-import { Edit, Trash2, Copy, Archive, MoreVertical } from 'lucide-react';
+import { Edit, Trash2, Copy, Archive } from 'lucide-react';
 import { Task } from '../../types';
 
 interface QuickActionsProps {
@@ -13,7 +13,6 @@ interface QuickActionsProps {
 }
 
 export const QuickActions = ({
-  task,
   onEdit,
   onDelete,
   onDuplicate,

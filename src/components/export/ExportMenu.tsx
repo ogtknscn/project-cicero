@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { FileText, FileSpreadsheet, Download } from 'lucide-react';
+import { FileText, FileSpreadsheet } from 'lucide-react';
 import { Button } from '../common/Button';
 import { Modal } from '../common/Modal';
 import { useStore } from '../../stores/useStore';

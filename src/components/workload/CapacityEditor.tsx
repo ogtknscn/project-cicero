@@ -3,7 +3,6 @@ import { useWorkloadStore } from '../../stores/workloadStore';
 import { Modal } from '../common/Modal';
 import { Input } from '../common/Input';
 import { Button } from '../common/Button';
-import { UserCapacity } from '../../types/workload';
 
 interface CapacityEditorProps {
   isOpen: boolean;

@@ -3,7 +3,7 @@ import { useDocumentStore } from '../../stores/documentStore';
 import { Modal } from '../common/Modal';
 import { Input } from '../common/Input';
 import { Button } from '../common/Button';
-import { Folder, Trash2, Edit2 } from 'lucide-react';
+import { Folder, Trash2 } from 'lucide-react';
 
 interface FolderManagerProps {
   isOpen: boolean;

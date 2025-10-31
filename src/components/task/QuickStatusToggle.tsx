@@ -1,4 +1,4 @@
-import { Check, Clock, X } from 'lucide-react';
+import { Check, Clock } from 'lucide-react';
 import { Task } from '../../types';
 import { useStore } from '../../stores/useStore';
 

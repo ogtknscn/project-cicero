@@ -1,6 +1,6 @@
 import { Sprint, SprintMetrics, BurndownPoint, VelocityData } from '../types/agile';
 import { Task } from '../types';
-import { differenceInDays, eachDayOfInterval, format, isAfter, isBefore } from 'date-fns';
+import { differenceInDays, eachDayOfInterval, format, isBefore } from 'date-fns';
 
 // Calculate sprint metrics
 export const calculateSprintMetrics = (

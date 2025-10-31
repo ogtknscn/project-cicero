@@ -11,7 +11,6 @@ import { TagSelector } from './TagSelector';
 import { CustomFieldsEditor } from './CustomFieldsEditor';
 import { TimeTracker } from '../time/TimeTracker';
 import { taskSchema } from '../../validation/schemas';
-import { handleError } from '../../utils/error';
 
 interface TaskModalProps {
   isOpen: boolean;
@@ -78,7 +77,7 @@ export const TaskModal = ({ isOpen, onClose, taskId, projectId }: TaskModalProps
 
     if (!validation.success) {
       // Show first validation error
-      const firstError = validation.error.errors[0];
+      const firstError = validation.error.issues[0];
       addToast({
         message: firstError.message,
         type: 'error',

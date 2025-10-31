@@ -1,5 +1,5 @@
 import { ProjectHealth } from '../../types/portfolio';
-import { getHealthColor, getHealthBgColor } from '../../utils/portfolio';
+import { getHealthColor } from '../../utils/portfolio';
 import { TrendingUp, TrendingDown, AlertCircle } from 'lucide-react';
 
 interface HealthScoreProps {

@@ -1,6 +1,5 @@
 import { Task } from '../../types';
 import { X, Link2 } from 'lucide-react';
-import { Button } from '../common/Button';
 
 interface TaskDependenciesProps {
   task: Task;
@@ -26,10 +25,6 @@ export const TaskDependencies = ({
       // Ekle
       onUpdateDependencies([...selectedDependencies, taskId]);
     }
-  };
-
-  const getTaskTitle = (taskId: string) => {
-    return allTasks.find((t) => t.id === taskId)?.title || taskId;
   };
 
   return (

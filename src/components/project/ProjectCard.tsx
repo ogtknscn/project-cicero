@@ -8,7 +8,7 @@ interface ProjectCardProps {
   isSelected?: boolean;
 }
 
-export const ProjectCard = React.memo(({ project, isSelected = false }: ProjectCardProps) => {
+export const ProjectCard = React.memo(({ project }: ProjectCardProps) => {
   const { selectProject } = useStore();
 
   const progressPercentage =

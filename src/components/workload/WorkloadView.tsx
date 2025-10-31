@@ -1,20 +1,15 @@
 import { useState } from 'react';
 import { useWorkloadStore } from '../../stores/workloadStore';
-import { useStore } from '../../stores/useStore';
 import { Button } from '../common/Button';
 import { Plus, AlertTriangle } from 'lucide-react';
 import { CapacityHeatmap } from './CapacityHeatmap';
 import { CapacityEditor } from './CapacityEditor';
 import { WorkloadAlerts } from './WorkloadAlerts';
-import { getCurrentWeek } from '../../utils/workload';
 
 export const WorkloadView = () => {
   const { userCapacities } = useWorkloadStore();
-  const { projects, selectedProjectId } = useStore();
   const [isEditorOpen, setIsEditorOpen] = useState(false);
   const [editingUserId, setEditingUserId] = useState<string | undefined>();
-
-  const selectedProject = projects.find((p) => p.id === selectedProjectId);
 
   const handleNewCapacity = () => {
     setEditingUserId(undefined);

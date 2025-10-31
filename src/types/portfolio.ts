@@ -1,5 +1,3 @@
-import { Project } from './index';
-
 export interface Portfolio {
   id: string;
   name: string;

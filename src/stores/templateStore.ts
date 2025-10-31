@@ -21,7 +21,7 @@ interface TemplateStore {
 
 export const useTemplateStore = create<TemplateStore>()(
   persist(
-    (set, get) => ({
+    (set) => ({
       taskTemplates: [],
       projectTemplates: [],
 

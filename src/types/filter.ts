@@ -14,10 +14,12 @@ export interface FilterPreset {
   createdAt: Date;
 }
 
+import { ViewType } from './index';
+
 export interface ViewPreset {
   id: string;
   name: string;
-  viewType: 'board' | 'list' | 'timeline' | 'calendar' | 'dashboard';
+  viewType: ViewType;
   filterPresetId?: string;
   sortBy?: 'dueDate' | 'priority' | 'createdAt' | 'updatedAt' | 'title';
   sortOrder?: 'asc' | 'desc';

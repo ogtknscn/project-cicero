@@ -1,4 +1,4 @@
-import React, { lazy, Suspense, useCallback, useMemo } from 'react';
+import { lazy, Suspense, useCallback, useMemo } from 'react';
 import { Task } from '../../types';
 import { useStore } from '../../stores/useStore';
 import { useViewStore } from '../../stores/viewStore';
@@ -6,7 +6,7 @@ import { Button } from '../common/Button';
 import { DraggableBoardView } from '../task/DraggableBoardView';
 import { ListView } from '../task/ListView';
 import { GanttView } from '../task/GanttView';
-import { Skeleton } from '../common/Skeleton';
+import { TaskCardSkeleton } from '../common/Skeleton';
 import { Plus } from 'lucide-react';
 
 // Lazy load heavy components
@@ -52,9 +52,9 @@ export const MainContent = ({ onNewTask, onEditTask }: MainContentProps) => {
   const renderView = useCallback(() => {
     const LoadingFallback = () => (
       <div className="p-6 space-y-4">
-        <Skeleton.TaskCardSkeleton />
-        <Skeleton.TaskCardSkeleton />
-        <Skeleton.TaskCardSkeleton />
+        <TaskCardSkeleton />
+        <TaskCardSkeleton />
+        <TaskCardSkeleton />
       </div>
     );
 

@@ -3,8 +3,7 @@ import { useFilterStore } from '../../stores/filterStore';
 import { Button } from '../common/Button';
 import { Input } from '../common/Input';
 import { Modal } from '../common/Modal';
-import { Save, Trash2, Plus } from 'lucide-react';
-import { Task } from '../../types';
+import { Save, Trash2 } from 'lucide-react';
 
 interface FilterPresetManagerProps {
   currentFilters: {

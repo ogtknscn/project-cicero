@@ -44,3 +44,16 @@ export interface Project {
     options?: string[];
   }[];
 }
+
+export type ViewType =
+  | 'dashboard'
+  | 'board'
+  | 'list'
+  | 'timeline'
+  | 'calendar'
+  | 'workload'
+  | 'portfolio'
+  | 'documents'
+  | 'automation'
+  | 'agile'
+  | 'notes';

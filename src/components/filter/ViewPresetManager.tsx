@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useFilterStore } from '../../stores/filterStore';
-import { useViewStore, ViewType } from '../../stores/viewStore';
+import { useViewStore } from '../../stores/viewStore';
 import { Button } from '../common/Button';
 import { Input } from '../common/Input';
 import { Modal } from '../common/Modal';
