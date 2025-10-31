@@ -1,17 +1,20 @@
+import React from 'react';
 import { Project } from '../../types';
 import { useStore } from '../../stores/useStore';
 import { Calendar, CheckCircle } from 'lucide-react';
 
 interface ProjectCardProps {
   project: Project;
+  isSelected?: boolean;
 }
 
-export const ProjectCard = ({ project }: ProjectCardProps) => {
+export const ProjectCard = React.memo(({ project, isSelected = false }: ProjectCardProps) => {
   const { selectProject } = useStore();
-  
-  const progressPercentage = project.metadata.totalTasks > 0
-    ? Math.round((project.metadata.completedTasks / project.metadata.totalTasks) * 100)
-    : 0;
+
+  const progressPercentage =
+    project.metadata.totalTasks > 0
+      ? Math.round((project.metadata.completedTasks / project.metadata.totalTasks) * 100)
+      : 0;
 
   return (
     <div
@@ -32,18 +35,20 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
           />
         )}
       </div>
-      
+
       <div className="flex items-center gap-4 text-sm text-gray-600">
         <div className="flex items-center gap-1">
           <CheckCircle size={16} />
-          <span>{project.metadata.completedTasks} / {project.metadata.totalTasks}</span>
+          <span>
+            {project.metadata.completedTasks} / {project.metadata.totalTasks}
+          </span>
         </div>
         <div className="flex items-center gap-1">
           <Calendar size={16} />
           <span>{new Date(project.updatedAt).toLocaleDateString('tr-TR')}</span>
         </div>
       </div>
-      
+
       <div className="mt-4">
         <div className="bg-gray-200 rounded-full h-2">
           <div
@@ -54,5 +59,4 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
       </div>
     </div>
   );
-};
-
+});

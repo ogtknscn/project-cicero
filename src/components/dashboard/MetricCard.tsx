@@ -17,22 +17,21 @@ const colorClasses = {
   gray: 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300',
 };
 
-export const MetricCard = ({ title, value, subtitle, icon, color }: MetricCardProps) => {
+export const MetricCard = React.memo(({ title, value, subtitle, icon, color }: MetricCardProps) => {
   return (
     <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6">
       <div className="flex items-center justify-between mb-4">
-        <div className={`w-12 h-12 rounded-lg flex items-center justify-center text-2xl ${colorClasses[color]}`}>
+        <div
+          className={`w-12 h-12 rounded-lg flex items-center justify-center text-2xl ${colorClasses[color]}`}
+        >
           {icon}
         </div>
       </div>
       <div>
         <p className="text-sm text-gray-500 dark:text-gray-400 mb-1">{title}</p>
         <p className="text-3xl font-bold text-gray-900 dark:text-white">{value}</p>
-        {subtitle && (
-          <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">{subtitle}</p>
-        )}
+        {subtitle && <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">{subtitle}</p>}
       </div>
     </div>
   );
-};
-
+});
