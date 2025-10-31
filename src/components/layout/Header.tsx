@@ -48,37 +48,57 @@ export const Header = ({ onNewProject }: HeaderProps) => {
   };
 
   return (
-    <header className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-6 py-4">
+    <header className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-4 md:px-6 py-3 md:py-4">
       <div className="flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Project Cicero</h1>
-          <span className="text-sm text-gray-500 dark:text-gray-400">Proje Yönetimi</span>
+        <div className="flex items-center gap-2 md:gap-3 ml-12 md:ml-0">
+          <h1 className="text-lg md:text-2xl font-bold text-gray-900 dark:text-white">
+            Project Cicero
+          </h1>
+          <span className="text-xs md:text-sm text-gray-500 dark:text-gray-400 hidden sm:inline">
+            Proje Yönetimi
+          </span>
         </div>
 
-        <div className="flex items-center gap-2">
-          <ViewToggle />
-          <ViewPresetManager />
-          <FilterPresetManager currentFilters={{}} />
-          <TemplateManager />
-          <ExportMenu />
+        <div className="flex items-center gap-1 md:gap-2 flex-wrap">
+          <div className="hidden lg:flex items-center gap-2">
+            <ViewToggle />
+            <ViewPresetManager />
+            <FilterPresetManager currentFilters={{}} />
+            <TemplateManager />
+            <ExportMenu />
+          </div>
           <Button
             variant="ghost"
             size="sm"
             onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+            ariaLabel="Tema değiştir"
           >
             {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
           </Button>
-          <Button variant="secondary" size="sm" onClick={handleExport}>
-            <Download size={16} className="mr-2" />
-            JSON
+          <Button
+            variant="secondary"
+            size="sm"
+            onClick={handleExport}
+            className="hidden sm:flex"
+            ariaLabel="JSON olarak dışa aktar"
+          >
+            <Download size={16} className="mr-1 md:mr-2" />
+            <span className="hidden md:inline">JSON</span>
           </Button>
-          <Button variant="secondary" size="sm" onClick={handleImport}>
-            <Upload size={16} className="mr-2" />
-            JSON
+          <Button
+            variant="secondary"
+            size="sm"
+            onClick={handleImport}
+            className="hidden sm:flex"
+            ariaLabel="JSON dosyasından içe aktar"
+          >
+            <Upload size={16} className="mr-1 md:mr-2" />
+            <span className="hidden md:inline">JSON</span>
           </Button>
-          <Button size="sm" onClick={onNewProject}>
-            <Plus size={16} className="mr-2" />
-            Yeni Proje
+          <Button size="sm" onClick={onNewProject} className="hidden sm:flex">
+            <Plus size={16} className="mr-1 md:mr-2" />
+            <span className="hidden md:inline">Yeni Proje</span>
+            <span className="md:hidden">Yeni</span>
           </Button>
         </div>
       </div>
